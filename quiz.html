@@ -4,11 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Love Quiz</title>
+    <link rel="stylesheet" href="styles/quiz.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+    <script src="scripts/quiz.js" defer></script>
 </head>
 <body>
-    <h1>Would You Rather? ❤️😂</h1>
-    <p>Would you rather go on a fancy dinner date or a cozy movie night?</p>
-    <button onclick="alert('Great choice! 😍')">Fancy Dinner 🍽️</button>
-    <button onclick="alert('Cozy and cute! ❤️')">Movie Night 🎥</button>
+    <h1>Would You Rather?</h1>
+    <div id="question-container">Loading...</div>
+    <div class="progress-bar">
+        <div class="progress" id="progress-bar"></div>
+    </div>
+    
+    <div class="button-container">
+        <div class="btn-card" onclick="chooseAnswer(true)">
+            <img id="option1-img" src="" alt="Option 1">
+            <span id="option1-text">Option 1</span>
+        </div>
+        <div class="btn-card" onclick="chooseAnswer(false)">
+            <img id="option2-img" src="" alt="Option 2">
+            <span id="option2-text">Option 2</span>
+        </div>
+    </div>
+
+    <button id="home-btn" onclick="goHome()">Back to Home</button>
+
+    <div id="roulette-container">
+        <h2>Love Roulette</h2>
+        <div class="roulette-wheel" id="roulette-wheel">
+            <div class="roulette-pointer"></div>
+        </div>
+        <p id="roulette-result">Spin for a fun love challenge!</p>
+        <button id="spin-btn" onclick="spinRoulette()">Spin Now</button>
+    </div>
+    
 </body>
 </html>

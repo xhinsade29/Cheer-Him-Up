@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    color: white;
+    padding: 50px 20px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+h1 {
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.5);
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+#question-container, #roulette-container {
+    background: white;
+    color: #ff4d6d;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    font-size: 18px;
+    font-weight: bold;
+    opacity: 0;
+    transform: translateY(-20px);
+    animation: fadeSlide 1s ease-in-out forwards;
+}
+
+.btn-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 180px;
+    height: 250px;
+    background: white;
+    color: #ff4d6d;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(255, 77, 109, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+.btn-card img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.btn-card:hover {
+    background: #ff4d6d;
+    color: white;
+    transform: scale(1.05);
+    box-shadow: 0px 6px 15px rgba(255, 77, 109, 0.6);
+}
+
+.button-container {
+    display: flex;
+    gap: 20px;
+}
+
+#roulette-container {
+    display: none;
+    text-align: center;
+    margin-top: 20px;
+}
+
+#spin-btn, #home-btn {
+    background: #ff4d6d;
+    color: white;
+    font-size: 18px;
+    border-radius: 20px;
+    padding: 12px 25px;
+    border: none;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#spin-btn:hover, #home-btn:hover {
+    background: white;
+    color: #ff4d6d;
+    border: 2px solid #ff4d6d;
+    transform: scale(1.1);
+}
+
+@keyframes fadeSlide {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+.progress-bar {
+    width: 100%;
+    max-width: 400px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 5px;
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background: white;
+    width: 0%;
+    transition: width 0.5s ease-in-out;
+}
+
+.roulette-wheel {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: conic-gradient(
+        from 0deg,
+        #e722c6 0% 25%,
+        #620053 25% 50%,
+        #ffa600 50% 75%,
+        #7c0017 75% 100%
+    );
+    position: relative;
+    margin: 20px auto;
+    transform: rotate(0deg);
+}
+
+.roulette-wheel::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.roulette-pointer {
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 20px solid white;
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.roulette-spin {
+    animation: spin 1s ease-in-out;
+}
+
+#home-btn {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: #ff4d6d;
+    color: white;
+    font-size: 16px;
+    border-radius: 20px;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+#home-btn:hover {
+    background: white;
+    color: #ff4d6d;
+    border: 2px solid #ff4d6d;
+    transform: scale(1.1);
+}
