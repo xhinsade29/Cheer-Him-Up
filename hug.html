@@ -4,9 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Click for a Hug</title>
+    <link rel="stylesheet" href="styles/hugs.css"> 
 </head>
 <body>
     <h1>Need a Hug? 🤗</h1>
-    <button onclick="alert('Sending virtual hugs your way! 🤗💖')">Click for a Hug</button>
+    
+    <!-- Hug Image Below the Heading -->
+    <img src="resources/hug.gif" alt="Cute Hug Image" class="hug-image"> 
+
+    <button class="hug-button" onclick="sendHug()">Click for a Hug</button>
+    <p id="message">Feeling down or upset? 💖</p>
+
+    <!-- Pop-up Message (Styled for better readability) -->
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <img src="resources/hugs.gif" alt="Virtual Hug" class="popup-gif">
+            
+            <p class="popup-message">
+                💖 Here’s a big warm hug just for you! 🤗💖<br><br>
+                I know you're having a hard time, and I see how tired and stressed you are.  
+                I hope you appreciate my effort in making this web.  
+                It may not be the best, but I hope it made you smile,  
+                even just a little—with my corny jokes and flirty lines. 😊💕<br><br>
+                
+                Always remember, you hold a special place in my heart.  
+                Your presence brings peace to my world. Choose happiness,  
+                embrace the things that bring you joy, and never forget—  
+                I'm always here to support you through every high and low.  
+                Stay safe, drive carefully, and may you find the peace you’re looking for. 💖
+            </p>
+            <button class="close-btn" onclick="closePopup()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        function sendHug() {
+            document.getElementById("popup").style.display = "flex";
+
+            // Restart GIF animation
+            let gif = document.querySelector(".popup-gif");
+            gif.src = gif.src; 
+        }
+
+        function closePopup() {
+            window.location.href = "index.html"; // Redirect to index.html
+        }
+    </script>
+
 </body>
 </html>
