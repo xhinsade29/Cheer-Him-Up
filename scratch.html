@@ -4,72 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Scratch Card Game</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f8f8f8;
-        }
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
-        .card {
-            width: 100px;
-            height: 150px;
-            background: gray;
-            position: relative;
-            cursor: pointer;
-            overflow: hidden;
-            border-radius: 10px;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            justify-content: center;
-            align-items: center;
-        }
-        .modal-content {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            position: relative;
-            width: 250px;
-            height: 350px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
-        .modal canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 10px;
-        }
-        .close {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            cursor: pointer;
-        }
-    </style>
+    <link rel="stylesheet" href="styles/scratch.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <h1>Scratch & Reveal Game</h1>
-    <button onclick="resetGame()">Back to Home</button>
+    <button onclick="goToHome()">Back to Home</button>
     <div class="container" id="cardContainer"></div>
-    
+
+    <!-- Modal for Scratch Effect -->
     <div class="modal" id="scratchModal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
@@ -77,111 +20,6 @@
         </div>
     </div>
 
-    <script>
-        const cardsData = [
-            { type: 'dare', content: 'Sing a song!' },
-            { type: 'dare', content: 'Dance for 30 seconds!' },
-            { type: 'dare', content: 'Do 10 push-ups!' },
-            { type: 'image', content: 'image1.jpg' },
-            { type: 'image', content: 'image2.jpg' },
-            { type: 'audio', content: 'audio1.mp3' },
-            { type: 'audio', content: 'audio2.mp3' },
-            { type: 'dare', content: 'Tell a joke!' },
-            { type: 'dare', content: 'Mimic your favorite actor!' },
-            { type: 'image', content: 'image3.jpg' },
-            { type: 'audio', content: 'audio3.mp3' },
-            { type: 'dare', content: 'Do 5 jumping jacks!' }
-        ];
-
-        function shuffleCards() {
-            return cardsData.sort(() => Math.random() - 0.5);
-        }
-
-        function createCard(content, type) {
-            const card = document.createElement('div');
-            card.classList.add('card');
-            card.onclick = () => openModal(content, type);
-            return card;
-        }
-
-        function openModal(content, type) {
-            const modal = document.getElementById('scratchModal');
-            const modalCard = document.getElementById('modalCard');
-            modalCard.innerHTML = '';
-
-            const hiddenContent = document.createElement('div');
-            if (type === 'image') {
-                const img = document.createElement('img');
-                img.src = content;
-                img.style.width = '100%';
-                hiddenContent.appendChild(img);
-            } else if (type === 'audio') {
-                const audio = document.createElement('audio');
-                audio.controls = true;
-                audio.src = content;
-                hiddenContent.appendChild(audio);
-            } else {
-                hiddenContent.textContent = content;
-            }
-
-            modalCard.appendChild(hiddenContent);
-            initScratchEffect(modalCard, hiddenContent);
-            modal.style.display = 'flex';
-        }
-
-        function closeModal() {
-            document.getElementById('scratchModal').style.display = 'none';
-        }
-
-        function initScratchEffect(container, hiddenContent) {
-            const canvas = document.createElement('canvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = 200;
-            canvas.height = 300;
-            container.appendChild(canvas);
-            
-            ctx.fillStyle = 'gray';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            let isScratching = false;
-            function scratch(event) {
-                event.preventDefault();
-                const rect = canvas.getBoundingClientRect();
-                const x = (event.touches ? event.touches[0].clientX : event.clientX) - rect.left;
-                const y = (event.touches ? event.touches[0].clientY : event.clientY) - rect.top;
-                ctx.clearRect(x - 10, y - 10, 20, 20);
-                checkScratchCompletion(ctx, canvas, hiddenContent);
-            }
-            
-            canvas.addEventListener('mousedown', () => isScratching = true);
-            canvas.addEventListener('mouseup', () => isScratching = false);
-            canvas.addEventListener('mouseleave', () => isScratching = false);
-            canvas.addEventListener('mousemove', (e) => isScratching && scratch(e));
-            canvas.addEventListener('touchstart', () => isScratching = true);
-            canvas.addEventListener('touchend', () => isScratching = false);
-            canvas.addEventListener('touchmove', (e) => isScratching && scratch(e));
-        }
-
-        function checkScratchCompletion(ctx, canvas, hiddenContent) {
-            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-            let clearedPixels = 0;
-            for (let i = 0; i < imageData.length; i += 4) {
-                if (imageData[i + 3] === 0) clearedPixels++;
-            }
-            if (clearedPixels > (canvas.width * canvas.height) * 0.5) {
-                canvas.style.display = 'none';
-                hiddenContent.style.display = 'block';
-            }
-        }
-
-        function resetGame() {
-            document.getElementById('cardContainer').innerHTML = '';
-            shuffleCards().forEach(cardData => {
-                document.getElementById('cardContainer').appendChild(createCard(cardData.content, cardData.type));
-            });
-        }
-
-        window.onload = resetGame;
-    </script>
+    <script src="scripts/scratch.js"></script>
 </body>
 </html>
