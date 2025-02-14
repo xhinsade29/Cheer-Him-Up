@@ -99,5 +99,5 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Spawn hearts every second
-    setInterval(createHeart, 600);
+    setInterval(createHeart, 350);
 });
