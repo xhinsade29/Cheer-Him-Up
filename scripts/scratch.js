@@ -1,18 +1,18 @@
 const cardsData = [
-    { type: 'dare', content: 'Sing a love song… but like a crying baby! 😭🎤', image: 'resources/baby_crying_sing.jpg' },
+    { type: 'dare', content: 'Sing a love song… but like a crying baby! 😭🎤', image: 'resources/baby_crying_sing.gif' },
     { type: 'dare', content: 'Dance like a worm trying to escape from a bird! 🪱🐦', image: 'resources/worm_dance.gif' },
     { type: 'dare', content: 'Act like a chicken who just found out it can fly! 🐔✨', image: 'resources/flying_chicken.jpg' },
-    { type: 'dare', content: 'Do a slow-motion fight scene with an invisible enemy! 🥋⚔️', image: 'resources/slowmo_fight.gif' },
-    { type: 'dare', content: 'Speak in an alien language until your next turn! 👽🛸', image: 'resources/alien_talk.jpg' },
-    { type: 'dare', content: 'Pretend you are a lost tourist asking for directions… in gibberish! 🗺️🤣', image: 'resources/lost_tourist.jpg' },
-    { type: 'dare', content: 'Try to sell an invisible product like a TV commercial! 📺😂', image: 'resources/salesman.gif' },
+    { type: 'dare', content: 'Do a slow-motion fight scene with an invisible enemy! 🥋⚔️', image: 'resources/slowmo_fight.jpg' },
+    { type: 'dare', content: 'Do the alien dance until your next turn! 👽🛸', image: 'resources/alien_dance.gif' },
+    { type: 'dare', content: 'Pretend you are a lost tourist asking for directions… in gibberish! 🗺️🤣', image: 'resources/lost_tourist1.jpg' },
+    { type: 'dare', content: 'Try to sell an invisible product like a TV commercial! 📺😂', image: 'resources/salesman.jpg' },
     { type: 'dare', content: 'Mimic the person on your right for the next 2 minutes! 🪞😆', image: 'resources/mirror_mimic.jpg' },
     { type: 'dare', content: 'Tell a joke, but whisper it like it’s a top-secret mission! 🤫', image: 'resources/whisper_joke.jpg' },
-    { type: 'dare', content: 'Pretend you’re on a cooking show and explain how to make "Invisible Soup"! 🍲👻', image: 'resources/cooking_show.gif' },
-    { type: 'dare', content: 'Do 5 jumping jacks while laughing like an evil villain! 😈😂', image: 'resources/evil_laugh.jpg' },
+    { type: 'dare', content: 'Pretend you’re on a cooking show and explain how to make "Invisible Soup"! 🍲👻', image: 'resources/cooking_show.jpg' },
+    { type: 'dare', content: 'Do 5 jumping jacks while laughing like an evil villain! 😈😂', image: 'resources/evil_laugh.gif' },
     { type: 'dare', content: 'Act like you just saw a ghost but can’t scream! 👻😱', image: 'resources/scared_silent.jpg' },
     { type: 'dare', content: 'Hug the nearest object and say, "I will never let go!" 🛟💔', image: 'resources/never_let_go.gif' },
-    { type: 'dare', content: 'Try to make the person next to you laugh within 10 seconds using only your face! 🤪', image: 'resources/funny_face.jpg' },
+    { type: 'dare', content: 'Try to make the person next to you laugh within 10 seconds using only your face! 🤪', image: 'resources/funny_face.gif' },
     { type: 'dare', content: 'Pretend you’re a cat stuck in a tree and need help! 🐱🌳', image: 'resources/cat_stuck.jpg' }
 ];
 
@@ -20,34 +20,32 @@ function shuffleCards() {
     return cardsData.sort(() => Math.random() - 0.5);
 }
 
-function createCard(content, type) {
+function createCard(content, type, image) {
     const card = document.createElement('div');
     card.classList.add('card');
-    card.onclick = () => openModal(content, type);
+    card.onclick = () => openModal(content, type, image); // Pass image here
     return card;
 }
 
-function openModal(content, type) {
+function openModal(content, type, image) {
     const modal = document.getElementById('scratchModal');
     const modalCard = document.getElementById('modalCard');
-    modalCard.innerHTML = '';
+    modalCard.innerHTML = ''; // Clear previous content
 
     const hiddenContent = document.createElement('div');
     hiddenContent.style.display = 'none';
 
-    if (type === 'image') {
+    if (image) { // Display image if available
         const img = document.createElement('img');
-        img.src = content;
+        img.src = image;
         img.style.width = '100%';
         hiddenContent.appendChild(img);
-    } else if (type === 'audio') {
-        const audio = document.createElement('audio');
-        audio.controls = true;
-        audio.src = content;
-        hiddenContent.appendChild(audio);
-    } else {
-        hiddenContent.textContent = content;
     }
+
+    // Always show text content
+    const text = document.createElement('p');
+    text.innerText = content;
+    hiddenContent.appendChild(text);
 
     modalCard.appendChild(hiddenContent);
     initScratchEffect(modalCard, hiddenContent);
@@ -129,17 +127,20 @@ function triggerConfetti() {
 function resetGame() {
     document.getElementById('cardContainer').innerHTML = '';
     shuffleCards().forEach(cardData => {
-        document.getElementById('cardContainer').appendChild(createCard(cardData.content, cardData.type));
+        document.getElementById('cardContainer').appendChild(
+            createCard(cardData.content, cardData.type, cardData.image)
+        );
     });
 }
 
 window.onload = function () {
     document.getElementById('cardContainer').innerHTML = '';
     shuffleCards().forEach(cardData => {
-        document.getElementById('cardContainer').appendChild(createCard(cardData.content, cardData.type));
+        document.getElementById('cardContainer').appendChild(
+            createCard(cardData.content, cardData.type, cardData.image)
+        );
     });
 };
-
 
 function goToHome() {
     window.location.href = 'home.html';
