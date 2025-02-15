@@ -16,72 +16,89 @@
             justify-content: center;
             height: 100vh;
         }
-        .card-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            max-width: 800px;
+        .heart {
+            font-size: 50px;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.3s;
         }
-        .card {
+        .heart:hover {
+            transform: scale(1.2);
+        }
+        .hidden-message {
+            display: none;
+            font-size: 18px;
+            margin-top: 10px;
+        }
+        .quiz-container, .hug-container, .scratch-container, .morse-container {
+            margin-top: 20px;
+            padding: 15px;
             background: white;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            width: 180px;
-            padding: 15px;
-            text-align: center;
-            transition: transform 0.3s;
+            max-width: 400px;
         }
-        .card:hover {
+        .scratch-box {
+            width: 100px;
+            height: 50px;
+            background: gray;
+            color: transparent;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .hug-button, .quiz-button, .open-button, .click-button {
+            padding: 12px 20px;
+            background: pink;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 18px;
+            transition: 0.3s;
+            display: block;
+            margin: 20px auto;
+        }
+        .open-button:hover, .click-button:hover {
+            background: #ff99aa;
             transform: scale(1.1);
         }
-        .card img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
+        .message-container {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #fff;
             border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            max-width: 400px;
+            animation: fadeIn 0.5s ease-in-out;
         }
-        .card a {
-            display: block;
-            margin-top: 10px;
-            padding: 10px;
-            background: pink;
-            text-decoration: none;
-            border-radius: 5px;
-            color: black;
-        }
-        .card a:hover {
-            background: #ff99aa;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
         }
     </style>
 </head>
 <body>
-    <h1>Surprise Love Page 💖</h1>
-    <div class="card-container">
-        <div class="card">
-            <img src="resources/hearts.gif" alt="Hearts">
-            <a href="hearts.html">Click the Hearts Surprise</a>
-        </div>
-        <div class="card">
-            <img src="resources/question.gif" alt="Quiz">
-            <a href="quiz.html">Would You Rather? Quiz</a>
-        </div>
-        <div class="card">
-            <img src="resources/shy.gif" alt="Hug">
-            <a href="hug.html">Click for a Hug</a>
-        </div>
-        <div class="card">
-            <img src="resources/node.gif" alt="Scratch">
-            <a href="scratch.html">Scratch to Reveal Love Note</a>
-        </div>
-        <div class="card">
-            <img src="resources/star.gif" alt="Star">
-            <a href="star.html">Send a Love Star</a>
-        </div>
-        <div class="card">
-            <img src="resources/sogoi.gif" alt="Morse Code">
-            <a href="morse.html">Morse Code Love</a>
-        </div>
+    <h1> For: J💖</h1>
+    
+    <button class="open-button" id="openBtn" onclick="openMessage()">Open Me 💌</button>
+      
+    <div class="message-container" id="loveMessage">
+        <p>You're the most amazing person, and I just want you to know how much I appreciate and love you! 💖
+            I hope this web makes you happy and cheer you up. 
+        </p>
+        <img src="resources/openme.gif" alt="Cute Animation" width="200">
+        <br><br>
+        <button class="click-button" onclick="redirectToIndex()">Click Me</button>
     </div>
+    
+    <script>
+        function openMessage() {
+            document.getElementById('loveMessage').style.display = 'block';
+            document.getElementById('openBtn').style.display = 'none';
+        }
+        function redirectToIndex() {
+            window.location.href = 'home.html';
+        }
+    </script>
 </body>
 </html>

@@ -1,18 +1,19 @@
 const cardsData = [
-    { type: 'dare', content: 'Sing a song!' },
-    { type: 'dare', content: 'Dance for 30 seconds!' },
-    { type: 'dare', content: 'Do 10 push-ups!' },
-    { type: 'image', content: 'images/image1.jpg' },
-    { type: 'image', content: 'images/image2.jpg' },
-    { type: 'audio', content: 'audio/audio1.mp3' },
-    { type: 'audio', content: 'audio/audio2.mp3' },
-    { type: 'dare', content: 'Tell a joke!' },
-    { type: 'dare', content: 'Mimic your favorite actor!' },
-    { type: 'image', content: 'images/image3.jpg' },
-    { type: 'image', content: 'images/image3.jpg' },
-    { type: 'image', content: 'images/image3.jpg' },
-    { type: 'audio', content: 'audio/audio3.mp3' },
-    { type: 'dare', content: 'Do 5 jumping jacks!' }
+    { type: 'dare', content: 'Sing a love song… but like a crying baby! 😭🎤', image: 'resources/baby_crying_sing.jpg' },
+    { type: 'dare', content: 'Dance like a worm trying to escape from a bird! 🪱🐦', image: 'resources/worm_dance.gif' },
+    { type: 'dare', content: 'Act like a chicken who just found out it can fly! 🐔✨', image: 'resources/flying_chicken.jpg' },
+    { type: 'dare', content: 'Do a slow-motion fight scene with an invisible enemy! 🥋⚔️', image: 'resources/slowmo_fight.gif' },
+    { type: 'dare', content: 'Speak in an alien language until your next turn! 👽🛸', image: 'resources/alien_talk.jpg' },
+    { type: 'dare', content: 'Pretend you are a lost tourist asking for directions… in gibberish! 🗺️🤣', image: 'resources/lost_tourist.jpg' },
+    { type: 'dare', content: 'Try to sell an invisible product like a TV commercial! 📺😂', image: 'resources/salesman.gif' },
+    { type: 'dare', content: 'Mimic the person on your right for the next 2 minutes! 🪞😆', image: 'resources/mirror_mimic.jpg' },
+    { type: 'dare', content: 'Tell a joke, but whisper it like it’s a top-secret mission! 🤫', image: 'resources/whisper_joke.jpg' },
+    { type: 'dare', content: 'Pretend you’re on a cooking show and explain how to make "Invisible Soup"! 🍲👻', image: 'resources/cooking_show.gif' },
+    { type: 'dare', content: 'Do 5 jumping jacks while laughing like an evil villain! 😈😂', image: 'resources/evil_laugh.jpg' },
+    { type: 'dare', content: 'Act like you just saw a ghost but can’t scream! 👻😱', image: 'resources/scared_silent.jpg' },
+    { type: 'dare', content: 'Hug the nearest object and say, "I will never let go!" 🛟💔', image: 'resources/never_let_go.gif' },
+    { type: 'dare', content: 'Try to make the person next to you laugh within 10 seconds using only your face! 🤪', image: 'resources/funny_face.jpg' },
+    { type: 'dare', content: 'Pretend you’re a cat stuck in a tree and need help! 🐱🌳', image: 'resources/cat_stuck.jpg' }
 ];
 
 function shuffleCards() {
@@ -141,5 +142,5 @@ window.onload = function () {
 
 
 function goToHome() {
-    window.location.href = 'index.html';
+    window.location.href = 'home.html';
 }

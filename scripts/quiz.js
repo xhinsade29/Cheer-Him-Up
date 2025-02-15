@@ -44,42 +44,54 @@ function updateProgressBar() {
     document.getElementById("progress-bar").style.width = `${progress}%`;
 }
 
+let totalRotation = 0; // Track total rotation
+
 function spinRoulette() {
     const wheel = document.getElementById("roulette-wheel");
     const resultText = document.getElementById("roulette-result");
     const spinBtn = document.getElementById("spin-btn");
+    const popup = document.getElementById("popup-container");
+    const rouletteContainer = document.getElementById("roulette-container");
     const spinDuration = 3000; // 3 seconds
-    const spins = 10; // Increase the number of spins for a faster effect
+    const spins = 10; 
     const degreesPerOption = 360 / rouletteOptions.length;
 
-    // Disable the spin button after clicking
+    // Disable spin button while spinning
     spinBtn.disabled = true;
 
     // Randomly select an option
     const randomIndex = Math.floor(Math.random() * rouletteOptions.length);
     const selectedOption = rouletteOptions[randomIndex];
 
-    // Calculate the final rotation angle
-    const finalRotation = spins * 360 + (randomIndex * degreesPerOption);
+    // Calculate the new rotation by adding to previous rotation
+    const finalRotation = totalRotation + (spins * 360) + (randomIndex * degreesPerOption);
+    totalRotation = finalRotation; // Save new rotation for next spin
 
-    // Apply the spinning animation
+    // Apply spinning animation
     wheel.style.transition = `transform ${spinDuration}ms ease-out`;
     wheel.style.transform = `rotate(${finalRotation}deg)`;
 
-    // Display the result after the spin
+    // Show result after spin
     setTimeout(() => {
         resultText.innerText = selectedOption;
-        confetti(); // Assuming you have a confetti function for celebration
-
-        // Redirect to index.html after a short delay
-        setTimeout(() => {
-            window.location.href = "index.html";
-        }, 2000); // 2 seconds delay before redirecting
+        popup.style.display = "flex";  // Show pop-up
+        rouletteContainer.style.display = "none";  // Hide roulette section
+        confetti();  
+        spinBtn.disabled = false;
     }, spinDuration);
 }
 
-function goHome() {
-    window.location.href = "index.html";
+
+// Close pop-up and restore roulette section
+function closePopup() {
+    document.getElementById("popup-container").style.display = "none";
+    document.getElementById("roulette-container").style.display = "block"; // Show roulette again
 }
+
+function goHome() {
+    // Ensure the page properly redirects to home.html
+    window.location.href = "home.html";
+}
+
 
 loadQuestion();

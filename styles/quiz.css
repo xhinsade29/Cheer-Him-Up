@@ -124,12 +124,16 @@ h1 {
     height: 200px;
     border-radius: 50%;
     background: conic-gradient(
-        from 0deg,
-        #e722c6 0% 25%,
-        #620053 25% 50%,
-        #ffa600 50% 75%,
-        #7c0017 75% 100%
+        #a00000 0% 25%, 
+        #ff3c00 25% 50%, 
+        #ffdd00 50% 75%, 
+        #014800 75% 100%, 
+        #180065 100% 125%, 
+        #150046 125% 150%, 
+        #290029 150% 175%, 
+        #4a004a 175% 200%
     );
+    
     position: relative;
     margin: 20px auto;
     transform: rotate(0deg);
