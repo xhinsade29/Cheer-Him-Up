@@ -1,18 +1,24 @@
 // Array of flirty messages
 const messages = [
-    "Pwede ra kayko ma brader, kung ikaw ang hinungdan! 📚❤️",
-    "Bahalag way tug, basta ikaw ang rason. 😘",
-    "Gimingaw nako nimo ug ayo! 😆❤️",
-    "Unsaon mani nakong jacket, kung ikaw akong gustoka ka cuddle? 😍",
-    "Murag cellphone akong kinabuhi... Kay ikaw akong signal! 📶💖",
-    "Mura kag kapi, kay di kompleto akong adlaw kung wa! ☕❤️",
-    "Kung ang gugma sakit, willing ko masakitan basta ikaw akong rason. 💔💘",
-    "Di nako kinahanglang aircon kay bugnaw na kaayo akong dughan basta naa ka. 🥶❤️",
-    "Okey rako mahulog, pero sa imong smile lang 🤗",
-    "Tinuod ba nga wala pay forever? Pwede ta maghimo ug forever para sa atong duha? 💑"
+   "Pwede ra ko ma-brader, basta ayaw lang i-activate ang friend mode kung imong wifi password ra ang hinungdan. Mas ganahan ko sa high-speed connection, diba?",
+
+"Bahalag way tug, basta ikaw ang hinungdan nga ma-overload akong router sa good vibes. Wala koy data limit sa feelings!",
+
+"Gimingaw na ko nimo, mura kog smartphone nga walay signal—pero kung ikaw mo-recharge, full bars dayon!",
+
+"Unsaon nako pag-jacket? Di ko fashionista, pero kung ikaw ang mo-provide og cozy mode, ready na ko pirme.",
+
+"Murag cellphone akong kinabuhi: kung ikaw ang signal, smooth kaayo ang connection; kon wala, puro interruption.",
+"Kung ang gugma sakit, ayaw kabalaka—willing ko modawat basta ikaw ang mo-prescribe sa dosage. Side effects? Uncontrollable laughter!",
+
+"Di nako kinahanglang aircon, kay kung naa ka, natural na ang chill effect sa akong kasingkasing. Climate control? Nah, love control!",
+
+"Okay ra ko mahulog, basta kung mahulog man gani ko, ikaw ang magpahimo ani nga epic fail story nga mapakatawa ta tanan.",
+
+"Tinuod ba nga wala pay forever? Pwede ra ta maghimo og forever nga murag viral meme—simple, kataw-anan, ug di malimtan!"
 ];
 
-const heartImages = ["heart2.png", "heart3.png", "heart.png"]; // Different heart colors
+const heartImages = ["heart2.png", "heart3.png", "heart1.png"]; // Different heart colors
 
 document.addEventListener("DOMContentLoaded", function () {
     const heartContainer = document.createElement("div");
@@ -22,7 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Function to create floating hearts
     function createHeart() {
         const heart = document.createElement("img");
-        heart.src = "resources/" + heartImages[Math.floor(Math.random() * heartImages.length)];
+        heart.src = "resources/lib-hearts/" + heartImages[Math.floor(Math.random() * heartImages.length)];
         heart.classList.add("heart");
         document.body.appendChild(heart); // Append hearts to the body (so they go over the video)
 
