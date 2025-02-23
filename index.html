@@ -3,102 +3,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Love Surprises</title>
+    <title>A Letter to Yourself 💝</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
-            text-align: center;
-            background-color: #fde2e4;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fde2e4 0%, #fff1f2 50%, #fde2e4 100%);
             padding: 20px;
+            position: relative;
+            overflow-x: hidden; /* Allow vertical scroll, prevent horizontal */
+        }
+
+        /* Main content wrapper */
+        .content-wrapper {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding: 40px 20px;
         }
-        .heart {
-            font-size: 50px;
-            cursor: pointer;
-            margin: 10px;
-            transition: transform 0.3s;
+
+        /* Floating hearts background */
+        .floating-hearts {
+            position: fixed; /* Changed from absolute to fixed */
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            top: 0;
+            left: 0;
         }
-        .heart:hover {
-            transform: scale(1.2);
+
+        .floating-heart {
+            position: absolute;
+            animation: float 20s linear infinite;
+            opacity: 0.4;
         }
-        .hidden-message {
-            display: none;
-            font-size: 18px;
-            margin-top: 10px;
+
+        .floating-heart img {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
         }
-        .quiz-container, .hug-container, .scratch-container, .morse-container {
-            margin-top: 20px;
-            padding: 15px;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            max-width: 400px;
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
         }
-        .scratch-box {
-            width: 100px;
-            height: 50px;
-            background: gray;
-            color: transparent;
-            display: inline-block;
-            cursor: pointer;
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            width: 100%;
+            margin-bottom: 40px; /* Add space at bottom */
         }
-        .hug-button, .quiz-button, .open-button, .click-button {
-            padding: 12px 20px;
-            background: pink;
+
+        h1 {
+            font-size: 2.5rem;
+            color: #ff758f;
+            margin-bottom: 2rem;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .open-button {
+            background: linear-gradient(45deg, #ff758f 0%, #ff7eb3 100%);
+            color: white;
+            padding: 15px 30px;
             border: none;
+            border-radius: 25px;
+            font-size: 1.2rem;
             cursor: pointer;
-            border-radius: 8px;
-            font-size: 18px;
-            transition: 0.3s;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 117, 143, 0.4);
             display: block;
-            margin: 20px auto;
+            margin: 0 auto;
         }
-        .open-button:hover, .click-button:hover {
-            background: #ff99aa;
-            transform: scale(1.1);
+
+        .open-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 117, 143, 0.6);
         }
+
         .message-container {
             display: none;
-            margin-top: 20px;
-            padding: 20px;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            max-width: 400px;
-            animation: fadeIn 0.5s ease-in-out;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            margin-top: 2rem;
+            animation: revealMessage 1s ease-out forwards;
+            text-align: center;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.9); }
-            to { opacity: 1; transform: scale(1); }
+
+        @keyframes revealMessage {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-container p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #4a4a4a;
+            margin-bottom: 1.5rem;
+        }
+
+        .message-container img {
+            max-width: 250px;
+            border-radius: 15px;
+            margin: 1rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .click-button {
+            background: linear-gradient(45deg, #ff7eb3 0%, #ff758f 100%);
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 20px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 126, 179, 0.4);
+            margin-top: 1rem;
+            display: inline-block; /* Ensure button is visible */
+        }
+
+        .click-button:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 126, 179, 0.6);
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .message-container {
+                padding: 1.5rem;
+            }
+
+            .message-container p {
+                font-size: 1rem;
+            }
         }
     </style>
 </head>
 <body>
-    <h1> For: J💖</h1>
+    <div class="floating-hearts" id="floatingHearts"></div>
     
-    <button class="open-button" id="openBtn" onclick="openMessage()">Open Me 💌</button>
-      
-    <div class="message-container" id="loveMessage">
-        <p>You're the most amazing person, and I just want you to know how much I appreciate and love you! 💖
-            I hope this web makes you happy and cheer you up. 
-        </p>
-        <img src="resources/openme.gif" alt="Cute Animation" width="200">
-        <br><br>
-        <button class="click-button" onclick="redirectToIndex()">Click Me</button>
+    <div class="content-wrapper">
+        <div class="container">
+            <h1> A Special Message for You </h1>
+            
+            <button class="open-button" id="openBtn" onclick="openMessage()">
+                Open Your Love Letter 💌
+            </button>
+
+            <div class="message-container" id="loveMessage">
+                <p>Dear wonderful soul,</p>
+                <p>
+                    Take a moment to remember this: you are absolutely incredible, 
+                    just as you are. Your strength, your kindness, and your unique spirit 
+                    make this world a better place. Today and every day, you deserve all 
+                    the love and appreciation in the world. 💖
+                </p>
+                <p>
+                    You are enough. You are worthy. You are loved.
+                    Let this message be a reminder that you deserve to celebrate yourself! 
+                </p>
+                <img src="resources/openme.gif" alt="Heartwarming Image">
+                <button class="click-button" onclick="redirectToIndex()">
+                    Continue Your Self-Love Journey →
+                </button>
+            </div>
+        </div>
     </div>
-    
+
     <script>
+        // Create floating hearts background using images
+        function createFloatingHearts() {
+            const heartsContainer = document.getElementById('floatingHearts');
+            const heartImages = [
+                'resources/heart.png',
+                'resources/heart1.png',
+                'resources/heart2.png',
+                'resources/heart3.png',
+                'resources/heart.png'
+            ];
+            
+            for (let i = 0; i < 20; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                
+                const img = document.createElement('img');
+                img.src = heartImages[Math.floor(Math.random() * heartImages.length)];
+                img.alt = 'Floating heart';
+                
+                heart.appendChild(img);
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animationDelay = Math.random() * 20 + 's';
+                heartsContainer.appendChild(heart);
+            }
+        }
+
         function openMessage() {
             document.getElementById('loveMessage').style.display = 'block';
             document.getElementById('openBtn').style.display = 'none';
         }
+
         function redirectToIndex() {
             window.location.href = 'home.html';
         }
+
+        // Initialize floating hearts
+        createFloatingHearts();
     </script>
 </body>
 </html>

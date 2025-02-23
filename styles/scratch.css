@@ -47,27 +47,50 @@ h1 {
     box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
 }
 
+/* General Button Styling */
 button {
-    background: linear-gradient(135deg, #ff4d6d, #ff758c);
-    color: white;
-    font-size: 1.2rem;
-    padding: 12px 30px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
+    padding: 12px 20px;
+    font-size: 18px;
     font-weight: bold;
+    color: white;
+    background: linear-gradient(135deg, #ff4d6d, #ff758f);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
     transition: all 0.3s ease-in-out;
-    font-family: 'Poppins', sans-serif;
-    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.5);
-    margin-bottom: 20px;
+    box-shadow: 0px 4px 10px rgba(255, 77, 109, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
 }
 
+/* Button Hover Effect */
 button:hover {
-    background: white;
-    color: #ff4d6d;
-    border: 2px solid #ff4d6d;
+    background: linear-gradient(135deg, #ff758f, #ffb3c1);
     transform: scale(1.1);
-    box-shadow: 0px 0px 20px rgba(255, 77, 109, 0.8);
+    box-shadow: 0px 6px 15px rgba(255, 77, 109, 0.6);
+}
+
+/* Button Click Effect */
+button:active {
+    transform: scale(0.95);
+    box-shadow: 0px 3px 8px rgba(255, 77, 109, 0.4);
+}
+
+/* Button Heart Effect */
+button::before {
+    
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    transition: all 0.3s ease;
+}
+
+button:hover::before {
+    left: 15px;
 }
 
 .modal {

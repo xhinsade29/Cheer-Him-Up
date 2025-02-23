@@ -9,6 +9,12 @@
     <script src="scripts/quiz.js" defer></script>
 </head>
 <body>
+
+    <button onclick="window.location.href='home.html'" 
+    style="position: fixed; top: 20px; left: 20px; padding: 10px 15px; background-color: #ff4d6d; border: none; border-radius: 5px; color: white; cursor: pointer; font-size: 16px; transition: 0.3s;">
+     Back to Home
+</button>
+
     <h1>Would You Rather?</h1>
     <div id="question-container">Loading...</div>
     <div class="progress-bar">
@@ -36,11 +42,11 @@
     
 
     <div id="roulette-container">
-        <h2>Love Roulette</h2>
+        <h2>Self-Love Roulette</h2>
         <div class="roulette-wheel" id="roulette-wheel">
             <div class="roulette-pointer"></div>
         </div>
-        <p id="roulette-result">Spin for a fun love challenge!</p>
+        <p id="roulette-result">Spin for a fun self love challenge!</p>
         <button id="spin-btn" onclick="spinRoulette()">Spin Now</button>
     </div>
     

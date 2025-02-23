@@ -6,14 +6,14 @@ const questions = [
 ];
 
 const rouletteOptions = [
-    "Give your partner five kisses!",
-    "Send your partner a surprise love message!",
-    "Plan a fun date this weekend!",
-    "Tell your partner three things you love about them!",
-    "Cook a meal together tonight!",
-    "Write a poem for your partner!",
-    "Dance together to your favorite song!",
-    "Watch the sunset together!"
+   "Give yourself five compliments in the mirror!",
+"Send yourself a kind and encouraging message!",
+"Plan a self-care day this weekend just for you!",
+"List three things you love about yourself!",
+"Cook your favorite meal and enjoy it mindfully!",
+"Write a love letter to yourself!",
+"Dance freely to your favorite song and celebrate yourself!",
+"Watch the sunset and reflect on your journey!"
 ];
 
 let currentQuestion = 0;
@@ -52,7 +52,7 @@ function spinRoulette() {
     const spinBtn = document.getElementById("spin-btn");
     const popup = document.getElementById("popup-container");
     const rouletteContainer = document.getElementById("roulette-container");
-    const spinDuration = 3000; // 3 seconds
+    const spinDuration = 2500; // 3 seconds
     const spins = 10; 
     const degreesPerOption = 360 / rouletteOptions.length;
 
@@ -92,6 +92,5 @@ function goHome() {
     // Ensure the page properly redirects to home.html
     window.location.href = "home.html";
 }
-
 
 loadQuestion();

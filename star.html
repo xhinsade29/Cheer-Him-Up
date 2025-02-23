@@ -3,11 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Send a Love Star</title>
+    <title>Send a Love Star ⭐</title>  
+    <link rel="stylesheet" href="styles/star.css">
 </head>
 <body>
-    <h1>Send a Love Star ⭐💞</h1>
-    <p>Whenever you feel sad, click the star to receive love!</p>
-    <button onclick="alert('You are loved beyond words! 🌟')">⭐ Send Love</button>
+
+  <button onclick="window.location.href='home.html'" 
+    style="position: fixed; top: 20px; left: 20px; padding: 10px 15px; background-color: #ff4d6d; border: none; border-radius: 5px; color: white; cursor: pointer; font-size: 16px; transition: 0.3s;">
+     Back to Home
+</button>
+
+    <div class="video-background">
+        <video id="background-video" autoplay loop muted>
+            <source src="resources/starry_night.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="header-container">
+        <h1>Send a Love Star ⭐</h1>
+        <p>Whenever you feel down, click the star to receive love and inspiration! 💖</p>
+        <button class="love-btn" onclick="sendLove()">⭐ Send Love</button>
+    </div>
+
+    <div class="popup-overlay" id="overlay"></div>
+    
+    <div class="video-popup" id="video-popup">
+        <video id="love-video">
+            <source src="resources/star_effects.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div class="message-popup" id="message-popup">
+        <p id="popup-text"></p>
+        <img id="popup-image" class="popup-image" alt="Inspirational image">
+        <button class="close-btn" onclick="closePopup()">Close</button>
+    </div>
+
+    <SCRipt src="scripts/star.js"></SCRipt>
+    
 </body>
 </html>

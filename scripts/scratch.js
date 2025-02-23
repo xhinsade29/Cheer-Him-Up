@@ -1,6 +1,6 @@
 const cardsData = [
     { type: 'dare', content: 'Sing a love song… but like a crying baby! 😭🎤', image: 'resources/baby_crying_sing.gif' },
-    { type: 'dare', content: 'Dance like a worm trying to escape from a bird! 🪱🐦', image: 'resources/worm_dance.gif' },
+    { type: 'dare', content: 'Dance like a worm trying to escape from a bird!', image: 'resources/worm_dance.gif' },
     { type: 'dare', content: 'Act like a chicken who just found out it can fly! 🐔✨', image: 'resources/flying_chicken.jpg' },
     { type: 'dare', content: 'Do a slow-motion fight scene with an invisible enemy! 🥋⚔️', image: 'resources/slowmo_fight.jpg' },
     { type: 'dare', content: 'Do the alien dance until your next turn! 👽🛸', image: 'resources/alien_dance.gif' },
@@ -141,7 +141,3 @@ window.onload = function () {
         );
     });
 };
-
-function goToHome() {
-    window.location.href = 'home.html';
-}
