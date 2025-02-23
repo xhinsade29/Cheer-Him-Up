@@ -3,85 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Love Surprises</title>
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            text-align: center;
-            background-color: #fde2e4;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-        .card-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            max-width: 800px;
-        }
-        .card {
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            width: 180px;
-            padding: 15px;
-            text-align: center;
-            transition: transform 0.3s;
-        }
-        .card:hover {
-            transform: scale(1.1);
-        }
-        .card img {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 10px;
-        }
-        .card a {
-            display: block;
-            margin-top: 10px;
-            padding: 10px;
-            background: pink;
-            text-decoration: none;
-            border-radius: 5px;
-            color: black;
-        }
-        .card a:hover {
-            background: #ff99aa;
-        }
-    </style>
+    <title>Love Surprises ✨</title>
+
+    <link rel="stylesheet" href="styles/home.css"> 
 </head>
 <body>
-    <h1> Select what your Heart desire:💖 </h1>
-    <div class="card-container">
-        <div class="card">
-            <img src="resources/hearts.gif" alt="Hearts">
-            <a href="hearts.html">Click the Hearts Surprise</a>
-        </div>
-        <div class="card">
-            <img src="resources/question.gif" alt="Quiz">
-            <a href="quiz.html">Would You Rather? Quiz</a>
-        </div>
-        <div class="card">
-            <img src="resources/shy.gif" alt="Hug">
-            <a href="hug.html">Click for a Hug</a>
-        </div>
-        <div class="card">
-            <img src="resources/node.gif" alt="Scratch">
-            <a href="scratch.html">Scratch to Reveal Love Note</a>
-        </div>
-        <div class="card">
-            <img src="resources/star.gif" alt="Star">
-            <a href="star.html">Send a Love Star</a>
-        </div>
-        <div class="card">
-            <img src="resources/sogoi.gif" alt="Morse Code">
-            <a href="morse.html">Morse Code Love</a>
+    <div class="container">
+        <h1>Select Your Heart's Desire ✨</h1>
+        
+        <div class="card-container">
+            <div class="card">
+                <div class="card-image">
+                    <img src="resources/lib-home/hearts.gif" alt="Hearts">
+                </div>
+                <h3 class="card-title">Hearts Surprise</h3>
+                <a href="hearts.html" class="card-link">Open the Magic ✨</a>
+            </div>
+
+            <div class="card">
+                <div class="card-image">
+                    <img src="resources/lib-home/quiz.gif" alt="Quiz">
+                </div>
+                <h3 class="card-title">Would You Rather?</h3>
+                <a href="quiz.html" class="card-link">Take the Quiz 💭</a>
+            </div>
+
+            <div class="card">
+                <div class="card-image">
+                    <img src="resources/lib-home/hug-shy.gif" alt="Hug">
+                </div>
+                <h3 class="card-title">Virtual Hug</h3>
+                <a href="hug.html" class="card-link">Get a Hug 🤗</a>
+            </div>
+
+            <div class="card">
+                <div class="card-image">
+                    <img src="resources/lib-home/dare.gif" alt="Scratch">
+                </div>
+                <h3 class="card-title">Love Note</h3>
+                <a href="scratch.html" class="card-link">Reveal Fun Dare 💌</a>
+            </div>
+
+            <div class="card">
+                <div class="card-image">
+                    <img src="resources/lib-home/star.gif" alt="Star">
+                </div>
+                <h3 class="card-title">Love Star</h3>
+                <a href="star.html" class="card-link">Send Love ⭐</a>
+            </div>
+
+            <div class="card">
+                <div class="card-image">
+                    <img src="resources/lib-home/decode.gif "alt="Morse Code">
+                </div>
+                <h3 class="card-title">Morse Code</h3>
+                <a href="morse.html" class="card-link">Decode Love 💝</a>
+            </div>
         </div>
     </div>
+
 </body>
 </html>
