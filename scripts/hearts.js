@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         gsap.fromTo(popup, { scale: 0, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.7)" });
 
-        setTimeout(closePopup, 3000); // Auto-close popup after 3 sec
+        setTimeout(closePopup, 5000); // Auto-close popup after 5 sec
     }
 
     // Function to close the popup

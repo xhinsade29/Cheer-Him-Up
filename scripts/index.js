@@ -2,11 +2,9 @@
  function createFloatingHearts() {
     const heartsContainer = document.getElementById('floatingHearts');
     const heartImages = [
-        'resources/heart.png',
-        'resources/heart1.png',
-        'resources/heart2.png',
-        'resources/heart3.png',
-        'resources/heart.png'
+        'resources/lib-hearts/heart1.png',
+        'resources/lib-hearts/heart2.png',
+        'resources/lib-hearts/heart3.png'
     ];
     
     for (let i = 0; i < 20; i++) {
