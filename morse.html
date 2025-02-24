@@ -3,11 +3,363 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Morse Code Love</title>
+    <title>Love Messages</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --primary: #FF97B7;
+            --primary-dark: #FF7FA6;
+            --accent: #FFE2EB;
+            --background: #FFF5F8;
+            --text: #6B4F57;
+            --card-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: var(--background);
+            background-image: 
+                radial-gradient(circle at 20% 20%, #FFE2EB 0%, transparent 20%),
+                radial-gradient(circle at 80% 40%, #FFD1E6 0%, transparent 20%),
+                radial-gradient(circle at 40% 60%, #FFE8F0 0%, transparent 20%),
+                radial-gradient(circle at 70% 80%, #FFE2EB 0%, transparent 20%);
+            font-family: 'Quicksand', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+            color: var(--text);
+        }
+
+        h1 {
+            color: var(--primary-dark);
+            font-size: 3.2em;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 20px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(255, 151, 183, 0.2);
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+
+        .number-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+            gap: 25px;
+            max-width: 850px;
+            padding: 35px;
+            background: var(--card-bg);
+            border-radius: 30px;
+            box-shadow: 
+                0 10px 30px rgba(255, 151, 183, 0.15),
+                inset 0 -2px 6px rgba(255, 151, 183, 0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .number-btn {
+            aspect-ratio: 1;
+            border: none;
+            border-radius: 20px;
+            background: white;
+            color: var(--primary);
+            font-size: 1.6em;
+            font-weight: 700;
+            font-family: 'Quicksand', sans-serif;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 
+                0 4px 15px rgba(255, 151, 183, 0.15),
+                inset 0 -2px 4px rgba(255, 151, 183, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .number-btn::after {
+            content: '❤️';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .number-btn:hover {
+            background: var(--primary);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 8px 20px rgba(255, 151, 183, 0.25),
+                inset 0 -2px 4px rgba(255, 255, 255, 0.3);
+        }
+
+        .number-btn:hover span {
+            opacity: 0;
+            transform: scale(0);
+        }
+
+        .number-btn:hover::after {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .message-card {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: var(--card-bg);
+            padding: 45px;
+            border-radius: 30px;
+            box-shadow: 
+                0 20px 50px rgba(255, 151, 183, 0.2),
+                inset 0 -2px 6px rgba(255, 151, 183, 0.1);
+            backdrop-filter: blur(10px);
+            display: none;
+            text-align: center;
+            min-width: 350px;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .show-card {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            border: none;
+            background: none;
+            font-size: 2em;
+            cursor: pointer;
+            color: var(--primary);
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .close-btn:hover {
+            transform: rotate(90deg);
+            background: var(--accent);
+        }
+
+        .decode-btn {
+            margin-top: 30px;
+            padding: 15px 35px;
+            border: none;
+            border-radius: 25px;
+            background: var(--primary);
+            color: white;
+            font-size: 1.2em;
+            font-weight: 600;
+            font-family: 'Quicksand', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(255, 151, 183, 0.25);
+        }
+
+        .decode-btn:disabled {
+            background: #E0E0E0;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+
+        .decode-btn:not(:disabled):hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 151, 183, 0.35);
+        }
+
+        #dotCode {
+            font-size: 2em;
+            color: var(--text);
+            margin: 25px 0;
+            letter-spacing: 3px;
+        }
+
+        #decodedMessage {
+            font-size: 1.5em;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-top: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            padding: 15px;
+            border-radius: 15px;
+            background: var(--accent);
+        }
+
+        #decodedMessage.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .loading-dots {
+            display: none;
+            margin: 20px 0;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.3em;
+        }
+
+        .loading-dots::after {
+            content: '';
+            animation: dots 1.5s steps(5, end) infinite;
+        }
+
+        @keyframes dots {
+            0%, 20% { content: '💖'; }
+            40% { content: '💖💖'; }
+            60% { content: '💖💖💖'; }
+            80%, 100% { content: ''; }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.4em;
+            }
+            
+            .number-container {
+                gap: 15px;
+                padding: 25px;
+            }
+
+            .message-card {
+                padding: 35px;
+                min-width: 300px;
+            }
+
+            #dotCode {
+                font-size: 1.6em;
+            }
+
+            #decodedMessage {
+                font-size: 1.3em;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Morse Code Love 🔠💡</h1>
-    <p>Decode this: .... .- .--. .--. -.-- / ...- .- .- .- .- .- .- .- .- .- .- .-</p>
-    <button onclick="alert('Translation: Happy Valentine’s! 💖')">Reveal</button>
+    <h1>Love Messages 💝</h1>
+    <div class="number-container" id="numberContainer"></div>
+
+    <div class="message-card" id="messageCard">
+        <button class="close-btn" onclick="closeMessage()">×</button>
+        <p id="dotCode"></p>
+        <button id="decodeButton" class="decode-btn" onclick="decodeMessage()">Decode Message 💝</button>
+        <div class="loading-dots" id="loadingDots">Decoding</div>
+        <p id="decodedMessage"></p>
+    </div>
+
+    <script>
+        const messages = {
+            dots: [
+                "●●● ●● ●●●●",
+                "●● ●●● ●●●●●",
+                "●●●● ● ●●●",
+                "●● ●●●● ●●",
+                "●●● ●●●●●",
+                "●●● ●● ●●●",
+                "●●●● ● ●●",
+                "●● ●●● ●●●",
+                "●●●● ●● ●●●",
+                "● ●●●● ●●●"
+            ],
+            decoded: [
+                "Rise and Shine ☀️",
+                "Believe in Yourself 💖",
+                "Stay Strong 💪",
+                "Act with Confidence 🔥",
+                "Know Your Worth 🌟",
+                "Think for Yourself 💭",
+                "Shine Bright 💡",
+                "Break Free 🎭",
+                "Your Power is Within 🚀",
+                "Unbreakable Spirit 💞"
+            ]
+        };
+
+        let lastMessageIndex = -1;
+
+        const container = document.getElementById('numberContainer');
+        for (let i = 1; i <= 10; i++) {
+            const button = document.createElement('button');
+            button.className = 'number-btn';
+            const span = document.createElement('span');
+            span.textContent = i;
+            button.appendChild(span);
+            button.onclick = () => showMessage(i - 1);
+            container.appendChild(button);
+        }
+
+        function showMessage(index) {
+            lastMessageIndex = index;
+            const card = document.getElementById('messageCard');
+            document.getElementById('dotCode').textContent = messages.dots[index];
+            document.getElementById('decodedMessage').textContent = '';
+            document.getElementById('decodedMessage').classList.remove('show');
+            document.getElementById('decodeButton').disabled = false;
+            card.style.display = 'block';
+            requestAnimationFrame(() => {
+                card.classList.add('show-card');
+            });
+        }
+
+        function decodeMessage() {
+            if (lastMessageIndex === -1) return;
+            
+            const decodedElement = document.getElementById('decodedMessage');
+            const loadingDots = document.getElementById('loadingDots');
+            const decodeButton = document.getElementById('decodeButton');
+
+            decodedElement.textContent = '';
+            decodedElement.classList.remove('show');
+            loadingDots.style.display = 'block';
+            decodeButton.disabled = true;
+
+            setTimeout(() => {
+                loadingDots.style.display = 'none';
+                decodedElement.textContent = messages.decoded[lastMessageIndex];
+                decodedElement.classList.add('show');
+            }, 2000);
+        }
+
+        function closeMessage() {
+            const card = document.getElementById('messageCard');
+            card.classList.remove('show-card');
+            setTimeout(() => {
+                card.style.display = 'none';
+                randomizeMessages();
+            }, 500);
+        }
+
+        function randomizeMessages() {
+            for (let i = messages.dots.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [messages.dots[i], messages.dots[j]] = [messages.dots[j], messages.dots[i]];
+                [messages.decoded[i], messages.decoded[j]] = [messages.decoded[j], messages.decoded[i]];
+            }
+        }
+    </script>
 </body>
 </html>
