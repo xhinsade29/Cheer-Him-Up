@@ -256,3 +256,37 @@ button::before {
 button:hover::before {
     left: 15px;
 }
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    border: 2px solid #ff4d6d;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    padding: 20px;
+    text-align: center;
+}
+
+.popup-content {
+    margin: 20px;
+}
+
+.popup-btn {
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: #ff4d6d;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s;
+}
+
+.popup-btn:hover {
+    background-color: #ff1a3c;
+}
