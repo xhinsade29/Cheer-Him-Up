@@ -1,0 +1,258 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap');
+
+:root {
+    --primary: #FF97B7;
+    --primary-dark: #FF7FA6;
+    --accent: #FFE2EB;
+    --background: #FFF5F8;
+    --text: #6B4F57;
+    --card-bg: rgba(255, 255, 255, 0.95);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--background);
+    background-image: 
+        radial-gradient(circle at 20% 20%, #FFE2EB 0%, transparent 20%),
+        radial-gradient(circle at 80% 40%, #FFD1E6 0%, transparent 20%),
+        radial-gradient(circle at 40% 60%, #FFE8F0 0%, transparent 20%),
+        radial-gradient(circle at 70% 80%, #FFE2EB 0%, transparent 20%);
+    font-family: 'Quicksand', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 5vw;
+    color: var(--text);
+}
+
+h1 {
+    color: var(--primary-dark);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    margin-bottom: 5vh;
+    position: relative;
+    padding-bottom: 1.5vh;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(255, 151, 183, 0.2);
+}
+
+.number-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
+    gap: 2vw;
+    max-width: 90vw;
+    padding: 4vw;
+    background: var(--card-bg);
+    border-radius: 30px;
+    box-shadow: 0 10px 30px rgba(255, 151, 183, 0.15),
+                inset 0 -2px 6px rgba(255, 151, 183, 0.1);
+    backdrop-filter: blur(5px);
+}
+
+.number-btn {
+    aspect-ratio: 1;
+    border: none;
+    border-radius: 20px;
+    background: white;
+    color: var(--primary);
+    font-size: clamp(1.2rem, 2vw, 1.6rem);
+    font-weight: 700;
+    font-family: 'Quicksand', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 15px rgba(255, 151, 183, 0.15),
+                inset 0 -2px 4px rgba(255, 151, 183, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.number-btn:hover {
+    background: var(--primary);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(255, 151, 183, 0.25),
+                inset 0 -2px 4px rgba(255, 255, 255, 0.3);
+}
+
+.message-card {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    background: var(--card-bg);
+    padding: 4vw;
+    border-radius: 30px;
+    box-shadow: 0 20px 50px rgba(255, 151, 183, 0.2),
+                inset 0 -2px 6px rgba(255, 151, 183, 0.1);
+    backdrop-filter: blur(10px);
+    display: none;
+    text-align: center;
+    width: min(90vw, 400px);
+    opacity: 0;
+    transition: all 0.5s ease-in-out;
+}
+
+.show-card {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    border: none;
+    background: none;
+    font-size: 2rem;
+    cursor: pointer;
+    color: var(--primary);
+    transition: all 0.3s ease;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.close-btn:hover {
+    transform: rotate(90deg);
+    background: var(--accent);
+}
+
+.decode-btn {
+    margin-top: 3vh;
+    padding: 1vw 3vw;
+    border: none;
+    border-radius: 25px;
+    background: var(--primary);
+    color: white;
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    font-weight: 600;
+    font-family: 'Quicksand', sans-serif;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(255, 151, 183, 0.25);
+}
+
+.decode-btn:disabled {
+    background: #E0E0E0;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.decode-btn:not(:disabled):hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(255, 151, 183, 0.35);
+}
+
+#dotCode {
+    font-size: clamp(1.5rem, 2vw, 2rem);
+    color: var(--text);
+    margin: 3vh 0;
+    letter-spacing: 3px;
+}
+
+#decodedMessage {
+    font-size: clamp(1.2rem, 2vw, 1.5rem);
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-top: 3vh;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-in-out;
+    padding: 1.5vh;
+    border-radius: 15px;
+    background: var(--accent);
+}
+
+#decodedMessage.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.loading-dots {
+    display: none;
+    margin: 2vh 0;
+    color: var(--primary);
+    font-weight: 600;
+    font-size: clamp(1rem, 1.5vw, 1.3rem);
+}
+
+@keyframes dots {
+    0%, 20% { content: '💖'; }
+    40% { content: '💖💖'; }
+    60% { content: '💖💖💖'; }
+    80%, 100% { content: ''; }
+}
+
+/* Mobile Optimization */
+@media (max-width: 768px) {
+    h1 {
+        font-size: clamp(1.8rem, 5vw, 2.4rem);
+    }
+
+    .number-container {
+        grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+        gap: 10px;
+        padding: 5vw;
+    }
+
+    .message-card {
+        padding: 4vw;
+        width: 90%;
+    }
+}
+
+/* General Button Styling */
+button {
+    padding: 12px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(135deg, #ff4d6d, #ff758f);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(255, 77, 109, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Button Hover Effect */
+button:hover {
+    background: linear-gradient(135deg, #ff758f, #ffb3c1);
+    transform: scale(1.1);
+    box-shadow: 0px 6px 15px rgba(255, 77, 109, 0.6);
+}
+
+/* Button Click Effect */
+button:active {
+    transform: scale(0.95);
+    box-shadow: 0px 3px 8px rgba(255, 77, 109, 0.4);
+}
+
+/* Button Heart Effect */
+button::before {
+    
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 20px;
+    transition: all 0.3s ease;
+}
+
+button:hover::before {
+    left: 15px;
+}

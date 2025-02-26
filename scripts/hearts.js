@@ -1,21 +1,15 @@
-// Array of flirty messages
+// Array of jokes in Bisaya
 const messages = [
-   "Pwede ra ko ma-brader, basta ayaw lang i-activate ang friend mode kung imong wifi password ra ang hinungdan. Mas ganahan ko sa high-speed connection, diba?",
-
-"Bahalag way tug, basta ikaw ang hinungdan nga ma-overload akong router sa good vibes. Wala koy data limit sa feelings!",
-
-"Gimingaw na ko nimo, mura kog smartphone nga walay signal—pero kung ikaw mo-recharge, full bars dayon!",
-
-"Unsaon nako pag-jacket? Di ko fashionista, pero kung ikaw ang mo-provide og cozy mode, ready na ko pirme.",
-
-"Murag cellphone akong kinabuhi: kung ikaw ang signal, smooth kaayo ang connection; kon wala, puro interruption.",
-"Kung ang gugma sakit, ayaw kabalaka—willing ko modawat basta ikaw ang mo-prescribe sa dosage. Side effects? Uncontrollable laughter!",
-
-"Di nako kinahanglang aircon, kay kung naa ka, natural na ang chill effect sa akong kasingkasing. Climate control? Nah, love control!",
-
-"Okay ra ko mahulog, basta kung mahulog man gani ko, ikaw ang magpahimo ani nga epic fail story nga mapakatawa ta tanan.",
-
-"Tinuod ba nga wala pay forever? Pwede ra ta maghimo og forever nga murag viral meme—simple, kataw-anan, ug di malimtan!"
+    "Unsa'y tawag sa tinapay nga galagaw? Loaf-ly around!",
+    "Ngano nagselos ang calculator? Kay naa'y something between x and y!",
+    "Unsa'y favorite drink sa ninja? Wa-taah!",
+    "Ngano dili ka-graduate ang zombie? Kay brain-dead man!",
+    "Unsa'y tawag sa haunted chicken? Mga Poul-tergeist!",
+    "Ngano nagtago ang math book? Kay daghan siya'g problems!",
+    "Unsa'y tawag sa spaghetti nga way sabaw? Pasta-way!",
+    "Ngano nga di ka-tulog ang keyboard? Kay naa man siya'y Caps Lock!",
+    "Unsa'y tawag sa isda nga nag-duty? Fish-ial business!",
+    "Ngano nga way ka-date ang pencil? Kay lead-down man siya pirmi!"
 ];
 
 const heartImages = ["heart2.png", "heart3.png", "heart1.png"]; // Different heart colors

@@ -78,7 +78,7 @@ h1 {
     margin-top: 20px;
 }
 
-#spin-btn, #home-btn {
+#spin-btn{
     background: #ff4d6d;
     color: white;
     font-size: 18px;
@@ -90,12 +90,67 @@ h1 {
     transition: 0.3s;
 }
 
-#spin-btn:hover, #home-btn:hover {
+#spin-btn:hover {
     background: white;
     color: #ff4d6d;
     border: 2px solid #ff4d6d;
     transform: scale(1.1);
 }
+
+
+/* Close Button Styling */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    background: #ff4d6d;
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    border: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(255, 77, 109, 0.4);
+}
+
+.close:hover {
+    background: white;
+    color: #ff4d6d;
+    transform: scale(1.1);
+    box-shadow: 0px 6px 15px rgba(255, 77, 109, 0.6);
+}
+
+/* Back to Home Button */
+#home-btn {
+    background: linear-gradient(135deg, #ff4d6d, #ff758f);
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 30px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 10px rgba(255, 77, 109, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 20px;
+}
+
+#home-btn:hover {
+    background: white;
+    color: #ff4d6d;
+    border: 2px solid #ff4d6d;
+    transform: scale(1.1);
+    box-shadow: 0px 6px 15px rgba(255, 77, 109, 0.6);
+}
+
 
 @keyframes fadeSlide {
     0% { opacity: 0; transform: translateY(-20px); }
