@@ -810,3 +810,124 @@ document.addEventListener("DOMContentLoaded", function () {
             // Initialize the game when the page loads
                 initGame();
                 });
+
+                document.addEventListener("DOMContentLoaded", function() {
+                    // Create the theme toggle button
+                    const themeToggle = document.createElement('button');
+                    themeToggle.id = 'theme-toggle-btn';
+                    themeToggle.className = 'action-btn'; // Use the same class as other action buttons
+                    
+                    // Add the SVG icon inside (similar to other action buttons)
+                    themeToggle.innerHTML = `
+                      <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
+                      </svg>
+                    `;
+                    
+                    // Find the game-actions container
+                    const gameActions = document.querySelector('.game-actions');
+                    
+                    // Add the toggle button to the game actions container
+                    if (gameActions) {
+                      // Insert at the beginning of the container
+                      gameActions.insertBefore(themeToggle, gameActions.firstChild);
+                      
+                      // Add event listener to toggle dark mode
+                      themeToggle.addEventListener('click', function() {
+                        document.body.classList.toggle('dark-mode');
+                        
+                        // Change the icon based on the theme
+                        if (document.body.classList.contains('dark-mode')) {
+                          themeToggle.innerHTML = `
+                            ☀️`;
+                        } else {
+                          themeToggle.innerHTML = `
+                            🌙
+                          `;
+                        }
+                      });
+                      
+                      // Set initial display state to match other buttons
+                      const actionButtons = document.querySelectorAll('.action-btn');
+                      let anyButtonVisible = false;
+                      
+                      actionButtons.forEach(button => {
+                        if (button.id !== 'theme-toggle-btn' && button.style.display !== 'none') {
+                          anyButtonVisible = true;
+                        }
+                      });
+                      
+                      // Match the display state of other buttons
+                      themeToggle.style.display = anyButtonVisible ? 'block' : 'none';
+                      
+                      // Add observer to monitor when other buttons appear/disappear
+                      const observer = new MutationObserver(function(mutations) {
+                        mutations.forEach(function(mutation) {
+                          if (mutation.target.classList.contains('action-btn') && 
+                              mutation.target.id !== 'theme-toggle-btn') {
+                            // Check if any action button is visible
+                            let anyVisible = false;
+                            actionButtons.forEach(button => {
+                              if (button.id !== 'theme-toggle-btn' && button.style.display !== 'none') {
+                                anyVisible = true;
+                              }
+                            });
+                            themeToggle.style.display = anyVisible ? 'block' : 'none';
+                          }
+                        });
+                      });
+                      
+                      // Observe all action buttons
+                      actionButtons.forEach(button => {
+                        if (button.id !== 'theme-toggle-btn') {
+                          observer.observe(button, { attributes: true, attributeFilter: ['style'] });
+                        }
+                      });
+                    }
+                    
+                    // Add dark mode styles
+                    const darkModeStyles = document.createElement('style');
+                    darkModeStyles.textContent = `
+                      body.dark-mode {
+                          background: linear-gradient(135deg, #2c1338, #1a0f24);
+                      }
+                      
+                      body.dark-mode .card {
+                          background: linear-gradient(135deg, #3a1f47, #2c1338);
+                      }
+                      
+                      body.dark-mode .modal-content {
+                          background: linear-gradient(135deg, #3a1f47, #2c1338);
+                          color: white;
+                      }
+                      
+                      body.dark-mode #modalCard p {
+                          background-color: rgba(255, 255, 255, 0.1);
+                          color: white;
+                      }
+                      
+                      body.dark-mode .difficulty-btn {
+                          background: rgba(255, 255, 255, 0.1);
+                      }
+                      
+                      body.dark-mode .difficulty-btn:hover,
+                      body.dark-mode .difficulty-btn.active {
+                          background: rgba(255, 255, 255, 0.2);
+                      }
+                      
+                      body.dark-mode h1 {
+                          color: #dedede;
+                      }
+                      
+                      body.dark-mode .action-btn {
+                          color: #ffb3c6;
+                          background-color: rgba(0, 0, 0, 0.3);
+                      }
+                      
+                      body.dark-mode .popup {
+                          background: linear-gradient(135deg, #3a1f47, #2c1338);
+                          color: white;
+                      }
+                    `;
+                    document.head.appendChild(darkModeStyles);
+                  });

@@ -1,39 +1,101 @@
+// Define card data with dares
 const cardsData = [
-    { type: 'dare', content: 'Sing a love song… but like a crying baby! 😭🎤', image: '../resources/lib-scratch/baby_crying_sing.gif' },
-    { type: 'dare', content: 'Dance like a worm trying to escape from a bird!', image: '../resources/lib-scratch/worm_dance.gif' },
-    { type: 'dare', content: 'Act like a chicken who just found out it can fly! 🐔✨', image: '../resources/lib-scratch/flying_chicken.jpg' },
-    { type: 'dare', content: 'Do a slow-motion fight scene with an invisible enemy! 🥋⚔️', image: '../resources/lib-scratch/slowmo_fight.jpg' },
-    { type: 'dare', content: 'Do the alien dance until your next turn! 👽🛸', image: '../resources/lib-scratch/alien_dance.gif' },
-    { type: 'dare', content: 'Pretend you are a lost tourist asking for directions… in gibberish! 🗺️🤣', image: '../resources/lib-scratch/lost_tourist1.jpg' },
-    { type: 'dare', content: 'Try to sell an invisible product like a TV commercial! 📺😂', image: '../resources/lib-scratch/salesman.jpg' },
-    { type: 'dare', content: 'Mimic the person on your right for the next 2 minutes! 🪞😆', image: '../resources/lib-scratch/mirror_mimic.jpg' },
-    { type: 'dare', content: 'Tell a joke, but whisper it like its a top-secret mission! 🤫', image: '../resources/lib-scratch/whisper_joke.jpg' },
-    { type: 'dare', content: 'Pretend youre on a cooking show and explain how to make Invisible Soup ! 🍲👻', image: '../resources/lib-scratch/cooking_show.jpg' },
-    { type: 'dare', content: 'Do 5 jumping jacks while laughing like an evil villain! 😈😂', image: '../resources/lib-scratch/evil_laugh.gif' },
-    { type: 'dare', content: 'Hug the nearest object and say, "I will never let go!" 🛟💔', image: '../resources/lib-scratch/never_let_go.gif' },
-    { type: 'dare', content: 'Try to make the person next to you laugh within 10 seconds using only your face! 🤪', image: '../resources/lib-scratch/funny_face.gif' },
-    { type: 'dare', content: 'Pretend youre a cat stuck in a tree and need help! 🐱🌳', image: '../resources/lib-scratch/cat_stuck.jpg' }
+    { type: 'dare', content: 'Sing a love song… but like a crying baby! 😭🎤', image: '../resources/lib-scratch/baby_crying_sing.gif', difficulty: 'easy' },
+    { type: 'dare', content: 'Dance like a worm trying to escape from a bird!', image: '../resources/lib-scratch/worm_dance.gif', difficulty: 'easy' },
+    { type: 'dare', content: 'Act like a chicken who just found out it can fly! 🐔✨', image: '../resources/lib-scratch/flying_chicken.jpg', difficulty: 'easy' },
+    { type: 'dare', content: 'Do a slow-motion fight scene with an invisible enemy! 🥋⚔️', image: '../resources/lib-scratch/slowmo_fight.jpg', difficulty: 'medium' },
+    { type: 'dare', content: 'Do the alien dance until your next turn! 👽🛸', image: '../resources/lib-scratch/alien_dance.gif', difficulty: 'medium' },
+    { type: 'dare', content: 'Pretend you are a lost tourist asking for directions… in gibberish! 🗺️🤣', image: '../resources/lib-scratch/lost_tourist1.jpg', difficulty: 'medium' },
+    { type: 'dare', content: 'Try to sell an invisible product like a TV commercial! 📺😂', image: '../resources/lib-scratch/salesman.jpg', difficulty: 'medium' },
+    { type: 'dare', content: 'Mimic the person on your right for the next 2 minutes! 🪞😆', image: '../resources/lib-scratch/mirror_mimic.jpg', difficulty: 'medium' },
+    { type: 'dare', content: 'Tell a joke, but whisper it like its a top-secret mission! 🤫', image: '../resources/lib-scratch/whisper_joke.jpg', difficulty: 'easy' },
+    { type: 'dare', content: 'Pretend youre on a cooking show and explain how to make Invisible Soup! 🍲👻', image: '../resources/lib-scratch/cooking_show.jpg', difficulty: 'medium' },
+    { type: 'dare', content: 'Do 5 jumping jacks while laughing like an evil villain! 😈😂', image: '../resources/lib-scratch/evil_laugh.gif', difficulty: 'hard' },
+    { type: 'dare', content: 'Hug the nearest object and say, "I will never let go!" 🛟💔', image: '../resources/lib-scratch/never_let_go.gif', difficulty: 'easy' },
+    { type: 'dare', content: 'Try to make the person next to you laugh within 10 seconds using only your face! 🤪', image: '../resources/lib-scratch/funny_face.gif', difficulty: 'medium' },
+    { type: 'dare', content: 'Pretend youre a cat stuck in a tree and need help! 🐱🌳', image: '../resources/lib-scratch/cat_stuck.jpg', difficulty: 'hard' }
 ];
 
-// Sound effects
-const scratchSound = new Audio('././resources/music-effects/scratch.mp3'); // Add a scratch sound file
-const revealSound = new Audio('././resources/music-effects/reveal.mp3'); // Add a reveal sound file
-const confettiSound = new Audio('././resources/music-effects/confetti.mp3'); // Add a confetti sound file
-const scoreSound = new Audio('././resources/music-effects/score.mp3'); // Add a score sound file
+// Sound effects with error handling
+const scratchSound = new Audio();
+const revealSound = new Audio();
+const confettiSound = new Audio();
+const scoreSound = new Audio();
+const levelUpSound = new Audio();
+const gameOverSound = new Audio();
 
-// Adjust scratch sound to be shorter
-scratchSound.volume = 0.3;
-
+// Game state variables
 let currentCards = [];
+let currentDifficulty = 'easy';
+let score = 0;
+let highScore = 0;
+let soundEnabled = true;
+let scratchedCards = new Set(); // Track which cards have been scratched
+let gameActive = true; // Track whether game is active or paused
+let cardsRevealedInLevel = 0; // Track how many cards have been revealed in current level
 
-function shuffleCards() {
-    return [...cardsData].sort(() => Math.random() - 0.5);
+// Initialize the sound effects with error handling
+function initSoundEffects() {
+    try {
+        scratchSound.src = './resources/music-effects/scratch.mp3';
+        revealSound.src = './resources/music-effects/reveal.mp3';
+        confettiSound.src = './resources/music-effects/confetti.mp3';
+        scoreSound.src = './resources/music-effects/score.mp3';
+        levelUpSound.src = './resources/music-effects/levelup.mp3'; // Add a level up sound
+        gameOverSound.src = './resources/music-effects/gameover.mp3'; // Add game over sound
+        
+        // Preload sounds
+        [scratchSound, revealSound, confettiSound, scoreSound, levelUpSound, gameOverSound].forEach(sound => {
+            sound.load();
+            sound.volume = 0.3;
+            
+            // Add error handling
+            sound.onerror = () => {
+                console.warn(`Failed to load sound: ${sound.src}`);
+                sound.muted = true;
+            };
+        });
+        
+        // Adjust scratch sound to be shorter
+        scratchSound.volume = 0.3;
+    } catch (e) {
+        console.error("Error initializing sound effects:", e);
+    }
 }
 
-function createCard(content, type, image, index) {
+// Filter cards by difficulty
+function getCardsByDifficulty(difficulty) {
+    return cardsData.filter(card => 
+        !card.difficulty || card.difficulty === difficulty || 
+        (difficulty === 'hard' && card.difficulty === 'medium')
+    );
+}
+
+// Shuffle cards with Fisher-Yates algorithm
+function shuffleCards() {
+    const availableCards = getCardsByDifficulty(currentDifficulty);
+    const shuffled = [...availableCards];
+    
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    
+    // Take only the first 8 cards
+    return shuffled.slice(0, 8);
+}
+
+// Create a card element
+function createCard(content, type, image, difficulty, index) {
     const card = document.createElement('div');
     card.classList.add('card');
     card.dataset.index = index;
+    
+    // Add difficulty badge
+    const difficultyBadge = document.createElement('div');
+    difficultyBadge.classList.add('card-difficulty');
+    difficultyBadge.textContent = difficulty || 'easy';
+    card.appendChild(difficultyBadge);
     
     // Add a slight random rotation to each card
     const randomRotation = Math.random() * 6 - 3;
@@ -42,11 +104,33 @@ function createCard(content, type, image, index) {
     // Add animation delay based on index
     card.style.animationDelay = `${index * 0.1}s`;
     
-    card.onclick = () => openModal(content, type, image);
+    // Check if card has been scratched already
+    if (scratchedCards.has(index)) {
+        // Apply completed card styling
+        card.classList.add('scratched');
+        const completedOverlay = document.createElement('div');
+        completedOverlay.classList.add('completed-overlay');
+        completedOverlay.innerHTML = '✓';
+        card.appendChild(completedOverlay);
+        
+        // Add disabled attribute and title
+        card.setAttribute('disabled', 'true');
+        card.title = 'Already completed';
+    
+    } else {
+        // Add click handler only if not scratched and game is active
+        card.onclick = () => {
+            if (gameActive && !scratchedCards.has(index)) {
+                openModal(content, type, image, difficulty, index);
+            }
+        };
+    }
+    
     return card;
 }
 
-function openModal(content, type, image) {
+// Open the scratch modal
+function openModal(content, type, image, difficulty, index) {
     const modal = document.getElementById('scratchModal');
     const modalCard = document.getElementById('modalCard');
     modalCard.innerHTML = '';
@@ -54,159 +138,355 @@ function openModal(content, type, image) {
     const hiddenContent = document.createElement('div');
     hiddenContent.style.display = 'none';
     hiddenContent.classList.add('hidden-content');
+    hiddenContent.dataset.difficulty = difficulty || 'easy';
+    hiddenContent.dataset.index = index;
 
     if (image) {
         const img = document.createElement('img');
         img.src = image;
-        img.style.width = '100%';
+        img.alt = "Dare image";
         
         // Add error handling for missing images
         img.onerror = () => {
             console.error(`Failed to load image: ${image}`);
-            img.src = '../resources/bg.png'; // Fallback image
-        };
-        
-        // Add loading indicator
-        img.onload = () => {
-            console.log(`Successfully loaded image: ${image}`);
+            img.src = './resources/404.jpg'; // Fallback image
         };
         
         hiddenContent.appendChild(img);
     }
 
-    // Always show text content
+    // Add text content
     const text = document.createElement('p');
     text.innerText = content;
     hiddenContent.appendChild(text);
 
     modalCard.appendChild(hiddenContent);
+    
+    // Initialize the scratch canvas
     initScratchEffect(modalCard, hiddenContent);
     
-    // Add animation class
-    modal.classList.add('modal-opening');
+    // Display the modal
     modal.style.display = 'flex';
     
     // Disable scrolling on body
     document.body.style.overflow = 'hidden';
 }
 
+// Close the modal
 function closeModal() {
     const modal = document.getElementById('scratchModal');
-    modal.classList.add('modal-closing');
     
-    setTimeout(() => {
-        modal.style.display = 'none';
-        modal.classList.remove('modal-opening', 'modal-closing');
-        // Re-enable scrolling
-        document.body.style.overflow = 'auto';
-    }, 300);
+    // Remove existing canvas
+    const existingCanvas = modal.querySelector('canvas');
+    if (existingCanvas) {
+        existingCanvas.remove();
+    }
+    
+    modal.style.display = 'none';
+    
+    // Re-enable scrolling
+    document.body.style.overflow = 'auto';
+    
+    // Check if all cards in current level are scratched
+    checkLevelCompletion();
 }
 
+// Check if all cards in current level are scratched
+function checkLevelCompletion() {
+    if (cardsRevealedInLevel >= currentCards.length) {
+        // All cards have been scratched in this level
+        if (currentDifficulty === 'hard') {
+            // Game completed - show game over modal
+            showGameOverModal();
+        } else {
+            // Progress to next level
+            progressToNextLevel();
+        }
+    }
+}
+
+// Progress to next difficulty level
+function progressToNextLevel() {
+    const difficultyOrder = ['easy', 'medium', 'hard'];
+    const currentIndex = difficultyOrder.indexOf(currentDifficulty);
+    if (currentIndex < difficultyOrder.length - 1) {
+        // Move to next difficulty
+        const nextDifficulty = difficultyOrder[currentIndex + 1];
+        
+        // Show level up modal
+        showLevelUpModal(nextDifficulty);
+        
+        // Play level up sound
+        if (soundEnabled) {
+            levelUpSound.currentTime = 0;
+            levelUpSound.play().catch(e => console.warn("Could not play level up sound:", e));
+        }
+    }
+}
+
+// Show level up modal
+function showLevelUpModal(nextDifficulty) {
+    // Create modal if it doesn't exist
+    let levelUpModal = document.getElementById('levelUpModal');
+    if (!levelUpModal) {
+        levelUpModal = document.createElement('div');
+        levelUpModal.id = 'levelUpModal';
+        levelUpModal.className = 'game-modal';
+        
+        const modalContent = document.createElement('div');
+        modalContent.className = 'modal-content';
+        
+        const title = document.createElement('h2');
+        title.innerText = '🎉 Level Complete! 🎉';
+        
+        const message = document.createElement('p');
+        message.id = 'levelUpMessage';
+        
+        const currentScoreText = document.createElement('p');
+        currentScoreText.innerHTML = `Current Score: <span id="levelUpScore"></span>`;
+        
+        const buttonContainer = document.createElement('div');
+        buttonContainer.className = 'button-container';
+        
+        const continueButton = document.createElement('button');
+        continueButton.innerText = 'Continue to Next Level';
+        continueButton.className = 'game-button';
+        continueButton.onclick = () => {
+            levelUpModal.style.display = 'none';
+            setDifficulty(nextDifficulty);
+            cardsRevealedInLevel = 0; // Reset counter for new level
+        };
+        
+        buttonContainer.appendChild(continueButton);
+        modalContent.appendChild(title);
+        modalContent.appendChild(message);
+        modalContent.appendChild(currentScoreText);
+        modalContent.appendChild(buttonContainer);
+        levelUpModal.appendChild(modalContent);
+        document.body.appendChild(levelUpModal);
+    }
+    
+    // Update modal content
+    document.getElementById('levelUpMessage').innerText = `You've completed the ${currentDifficulty} level! Moving on to ${nextDifficulty} difficulty!`;
+    document.getElementById('levelUpScore').innerText = score;
+    
+    // Show modal
+    levelUpModal.style.display = 'flex';
+}
+
+// Show game over modal
+function showGameOverModal() {
+    // Create modal if it doesn't exist
+    let gameOverModal = document.getElementById('gameOverModal');
+    if (!gameOverModal) {
+        gameOverModal = document.createElement('div');
+        gameOverModal.id = 'gameOverModal';
+        gameOverModal.className = 'game-modal';
+        
+        const modalContent = document.createElement('div');
+        modalContent.className = 'modal-content';
+        
+        const title = document.createElement('h2');
+        title.innerText = '🏆 Game Complete! 🏆';
+        
+        const message = document.createElement('p');
+        message.innerText = 'Congratulations! You\'ve completed all levels!';
+        
+        const finalScoreText = document.createElement('p');
+        finalScoreText.innerHTML = `Final Score: <span id="finalScore"></span>`;
+        
+        const highScoreText = document.createElement('p');
+        highScoreText.id = 'newHighScore';
+        highScoreText.style.display = 'none';
+        highScoreText.innerHTML = '🎉 NEW HIGH SCORE! 🎉';
+        
+        const buttonContainer = document.createElement('div');
+        buttonContainer.className = 'button-container';
+        
+        const playAgainButton = document.createElement('button');
+        playAgainButton.innerText = 'Play Again';
+        playAgainButton.className = 'game-button';
+        playAgainButton.onclick = () => {
+            gameOverModal.style.display = 'none';
+            resetGame(true);
+        };
+        
+        buttonContainer.appendChild(playAgainButton);
+        modalContent.appendChild(title);
+        modalContent.appendChild(message);
+        modalContent.appendChild(finalScoreText);
+        modalContent.appendChild(highScoreText);
+        modalContent.appendChild(buttonContainer);
+        gameOverModal.appendChild(modalContent);
+        document.body.appendChild(gameOverModal);
+    }
+    
+    // Update modal content
+    document.getElementById('finalScore').innerText = score;
+    
+    // Check for high score
+    if (score > highScore) {
+        document.getElementById('newHighScore').style.display = 'block';
+    } else {
+        document.getElementById('newHighScore').style.display = 'none';
+    }
+    
+    // Play game over sound
+    if (soundEnabled) {
+        gameOverSound.currentTime = 0;
+        gameOverSound.play().catch(e => console.warn("Could not play game over sound:", e));
+    }
+    
+    // Show modal
+    gameOverModal.style.display = 'flex';
+}
+
+// Initialize the scratch effect
 function initScratchEffect(container, hiddenContent) {
+    // Create canvas
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d', { willReadFrequently: true });
-    canvas.width = container.clientWidth;
-    canvas.height = container.clientHeight;
+    
+    // Set canvas dimensions to match container
+    const containerRect = container.getBoundingClientRect();
+    canvas.width = containerRect.width;
+    canvas.height = containerRect.height;
+    
+    // Ensure canvas has valid dimensions
+    if (canvas.width <= 0 || canvas.height <= 0) {
+        console.error("Invalid canvas dimensions:", canvas.width, canvas.height);
+        canvas.width = Math.max(300, containerRect.width);
+        canvas.height = Math.max(400, containerRect.height);
+    }
+    
     container.appendChild(canvas);
-
-    // Create a pattern for the scratch surface
-    const scratchPattern = document.createElement('canvas');
-    const patternCtx = scratchPattern.getContext('2d');
-    scratchPattern.width = 50;
-    scratchPattern.height = 50;
     
-    // Draw a pattern
-    patternCtx.fillStyle = '#a0a0a0';
-    patternCtx.fillRect(0, 0, 50, 50);
-    patternCtx.fillStyle = '#b3b3b3';
-    patternCtx.fillRect(0, 0, 25, 25);
-    patternCtx.fillRect(25, 25, 25, 25);
+    // Fill canvas with pattern
+    const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    gradient.addColorStop(0, '#c9c9c9');
+    gradient.addColorStop(1, '#a0a0a0');
     
-    const pattern = ctx.createPattern(scratchPattern, 'repeat');
-    ctx.fillStyle = pattern;
+    ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
     
-    // Draw a ? symbol or "Scratch me!" text on the card
+    // Draw text
     ctx.font = 'bold 40px Fredoka One, cursive';
     ctx.fillStyle = '#ff4d6d';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
     ctx.fillText('SCRATCH!', canvas.width/2, canvas.height/2);
-
+    
+    // Add decorative elements
+    ctx.font = '24px Fredoka One, cursive';
+    ctx.fillText('👇', canvas.width/2, canvas.height/2 + 50);
+    
+    // Add small fingerprint marks around the edges
+    for (let i = 0; i < 10; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height;
+        const size = 5 + Math.random() * 10;
+        
+        ctx.globalAlpha = 0.1 + Math.random() * 0.2;
+        ctx.beginPath();
+        ctx.arc(x, y, size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+    
+    ctx.globalAlpha = 1;
+    
+    // Track scratching state
     let isScratching = false;
     let lastX = 0;
     let lastY = 0;
-    let scratchAreaCovered = 0;
-
-    function scratch(event) {
+    let scratchedPixels = 0;
+    const totalPixels = canvas.width * canvas.height;
+    
+    // Event functions for scratching
+    function startScratch(event) {
+        if (!gameActive) return; // Skip if game is paused
         event.preventDefault();
+        isScratching = true;
+        performScratch(event);
+    }
+    
+    function performScratch(event) {
+        if (!isScratching || !gameActive) return; // Skip if not scratching or game is paused
+        event.preventDefault();
+        
         const rect = canvas.getBoundingClientRect();
         const x = (event.touches ? event.touches[0].clientX : event.clientX) - rect.left;
         const y = (event.touches ? event.touches[0].clientY : event.clientY) - rect.top;
         
-        // Play sound effect if just started scratching
-        if (!isScratching) {
+        // Play scratch sound if enabled
+        if (soundEnabled && !scratchSound.paused) {
             scratchSound.currentTime = 0;
-            scratchSound.play();
+            scratchSound.play().catch(e => console.warn("Could not play scratch sound:", e));
         }
         
         // Create a more dynamic scratch effect with varying sizes based on speed
         const distanceFromLast = Math.sqrt(Math.pow(x - lastX, 2) + Math.pow(y - lastY, 2));
-        const brushSize = Math.min(Math.max(15, distanceFromLast * 1.5), 35);
+        const brushSize = Math.min(Math.max(20, distanceFromLast * 1.5), 40);
         
         ctx.globalCompositeOperation = 'destination-out';
-        ctx.beginPath();
         
         // Draw a line from last position to current position for continuous scratching
-        if (lastX && lastY && distanceFromLast < 50) {
+        if (lastX && lastY && distanceFromLast < 100) {
             ctx.lineWidth = brushSize;
             ctx.lineCap = 'round';
+            ctx.beginPath();
             ctx.moveTo(lastX, lastY);
             ctx.lineTo(x, y);
             ctx.stroke();
+            
+            // Approximate scratched pixels
+            scratchedPixels += brushSize * distanceFromLast;
         } else {
+            ctx.beginPath();
             ctx.arc(x, y, brushSize, 0, Math.PI * 2);
             ctx.fill();
+            
+            // Approximate scratched pixels
+            scratchedPixels += Math.PI * brushSize * brushSize;
         }
         
         lastX = x;
         lastY = y;
         
-        // Create multiple sparks for a more dramatic effect
-        for (let i = 0; i < 3; i++) {
-            const offsetX = (Math.random() - 0.5) * 20;
-            const offsetY = (Math.random() - 0.5) * 20;
-            createSparkEffect(x + offsetX, y + offsetY, container);
-        }
+        // Create spark effect
+        createSparkEffect(x, y, container);
         
-        checkScratchCompletion(ctx, canvas, hiddenContent);
+        // Check if enough of the card has been scratched
+        const scratchPercentage = Math.min(scratchedPixels / totalPixels, 1);
+        if (scratchPercentage > 0.4) {
+            revealCard(hiddenContent);
+        }
     }
-
-    // Reset on pointer up
+    
     function endScratch() {
         isScratching = false;
         lastX = 0;
         lastY = 0;
-        scratchSound.pause();
+        
+        // Stop scratch sound
+        if (!scratchSound.paused) {
+            scratchSound.pause();
+            scratchSound.currentTime = 0;
+        }
     }
-
-    canvas.addEventListener('mousedown', (e) => {
-        isScratching = true;
-        scratch(e);
-    });
+    
+    // Add event listeners
+    canvas.addEventListener('mousedown', startScratch);
+    canvas.addEventListener('mousemove', performScratch);
     canvas.addEventListener('mouseup', endScratch);
     canvas.addEventListener('mouseleave', endScratch);
-    canvas.addEventListener('mousemove', (e) => isScratching && scratch(e));
     
-    canvas.addEventListener('touchstart', (e) => {
-        isScratching = true;
-        scratch(e);
-    });
+    canvas.addEventListener('touchstart', startScratch);
+    canvas.addEventListener('touchmove', performScratch);
     canvas.addEventListener('touchend', endScratch);
     canvas.addEventListener('touchcancel', endScratch);
-    canvas.addEventListener('touchmove', (e) => isScratching && scratch(e));
 }
 
+// Create a spark effect at the specified position
 function createSparkEffect(x, y, container) {
     const spark = document.createElement('div');
     spark.classList.add('spark');
@@ -222,363 +502,561 @@ function createSparkEffect(x, y, container) {
     setTimeout(() => spark.remove(), 500);
 }
 
-function checkScratchCompletion() {
-    if (scratchCanvas.width === 0 || scratchCanvas.height === 0) {
-        console.error("Canvas has invalid dimensions. Skipping image check.");
-        return;
+// Reveal the card content
+function revealCard(hiddenContent) {
+    // Show hidden content
+    hiddenContent.style.display = 'flex';
+    
+    // Play reveal sound
+    if (soundEnabled) {
+        revealSound.currentTime = 0;
+        revealSound.play().catch(e => console.warn("Could not play reveal sound:", e));
     }
-
-    const imageData = ctx.getImageData(0, 0, scratchCanvas.width, scratchCanvas.height);
-    const pixels = imageData.data;
-    let cleared = 0;
-
-    for (let i = 3; i < pixels.length; i += 4) {
-        if (pixels[i] === 0) cleared++;
+    
+    // Remove canvas
+    const canvas = hiddenContent.parentElement.querySelector('canvas');
+    if (canvas) {
+        canvas.remove();
     }
+    
+    // Mark card as scratched
+    const cardIndex = hiddenContent.dataset.index;
+    scratchedCards.add(parseInt(cardIndex));
+    cardsRevealedInLevel++;
+    
+    // Update card in the grid
+    updateCardInGrid(cardIndex);
+    
+    // Trigger confetti effect
+    setTimeout(() => {
+        triggerConfetti();
+    }, 300);
+    
+    // Update score based on difficulty
+    const difficulty = hiddenContent.dataset.difficulty || 'easy';
+    updateScore(difficulty);
+}
 
-    const approxClearedPercentage = cleared / (totalPixels / 4);
+// Update card display in the grid to show it's been scratched
+function updateCardInGrid(index) {
+    const cards = document.querySelectorAll('.card');
+    cards.forEach(card => {
+        if (card.dataset.index === index) {
+            card.classList.add('scratched');
+            
+            // Add completed overlay if not already there
+            if (!card.querySelector('.completed-overlay')) {
+                const completedOverlay = document.createElement('div');
+                completedOverlay.classList.add('completed-overlay');
+                completedOverlay.innerHTML = '✓';
+                card.appendChild(completedOverlay);
+            }
+            
+            // Remove click handler
+            card.onclick = null;
+        }
+    });
+}
 
-    if (approxClearedPercentage > 0.3) {
-        revealCard();
+// Update the player's score
+function updateScore(difficulty) {
+    const pointValues = {
+        'easy': 5,
+        'medium': 10,
+        'hard': 15
+    };
+    
+    const points = pointValues[difficulty] || 5;
+    score += points;
+    
+    // Update progress bar and score display
+    const progressBar = document.getElementById('progressBar');
+    const scoreValue = document.getElementById('scoreValue');
+    
+    if (progressBar && scoreValue) {
+        // Calculate progress percentage (max score 100)
+        const progressPercentage = Math.min(score, 100);
+        progressBar.style.width = `${progressPercentage}%`;
+        scoreValue.textContent = score;
+        
+        // Play score sound
+        if (soundEnabled) {
+            scoreSound.currentTime = 0;
+            scoreSound.play().catch(e => console.warn("Could not play score sound:", e));
+        }
+        
+        // Check if high score is beaten
+        if (score > highScore) {
+            highScore = score;
+            localStorage.setItem('highScore', highScore);
+            
+            // Update high score display if it exists
+            const highScoreDisplay = document.querySelector('.high-score');
+            if (highScoreDisplay) {
+                highScoreDisplay.innerHTML = `High Score: ${highScore}`;
+                highScoreDisplay.classList.add('pulse');
+                setTimeout(() => highScoreDisplay.classList.remove('pulse'), 1000);
+            }
+        }
     }
 }
 
-
-
+// Create confetti effect
 function triggerConfetti() {
     // Play confetti sound
-    confettiSound.play();
-    
-    // Create multiple confetti elements for a fuller effect
-    const confetti = document.createElement('div');
-    confetti.classList.add('confetti');
-    document.body.appendChild(confetti);
-    
-    // Add some actual confetti pieces
-    for (let i = 0; i < 100; i++) {
-        createConfettiPiece();
+    if (soundEnabled) {
+        confettiSound.currentTime = 0;
+        confettiSound.play().catch(e => console.warn("Could not play confetti sound:", e));
     }
     
+    // Create confetti container if it doesn't exist
+    let confettiContainer = document.querySelector('.confetti');
+    if (!confettiContainer) {
+        confettiContainer = document.createElement('div');
+        confettiContainer.classList.add('confetti');
+        document.body.appendChild(confettiContainer);
+    }
+    
+    // Add confetti pieces
+    for (let i = 0; i < 100; i++) {
+        createConfettiPiece(confettiContainer);
+    }
+    
+    // Clean up after animation
     setTimeout(() => {
-        confetti.remove();
-    }, 2000);
+        if (confettiContainer && confettiContainer.parentNode) {
+            confettiContainer.parentNode.removeChild(confettiContainer);
+        }
+    }, 3000);
 }
 
-function createConfettiPiece() {
+// Create a single confetti piece
+function createConfettiPiece(container) {
     const colors = ['#ff4d6d', '#ff758c', '#ffb3c1', '#ffcdd2', '#ffffff'];
     const confettiPiece = document.createElement('div');
+    
+    // Randomize properties
     const size = Math.random() * 10 + 5;
-    
-    confettiPiece.style.position = 'fixed';
-    confettiPiece.style.width = `${size}px`;
-    confettiPiece.style.height = `${size}px`;
-    confettiPiece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-    confettiPiece.style.top = '-20px';
-    confettiPiece.style.left = `${Math.random() * 100}vw`;
-    confettiPiece.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
-    confettiPiece.style.transform = `rotate(${Math.random() * 360}deg)`;
-    confettiPiece.style.zIndex = '1000';
-    confettiPiece.style.pointerEvents = 'none';
-    
-    // Random animation duration and delay
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const shape = Math.random() > 0.5 ? '50%' : '0';
+    const leftPos = Math.random() * 100;
     const duration = Math.random() * 3 + 1;
     const delay = Math.random() * 0.5;
     
+    // Apply styles
+    confettiPiece.style.position = 'absolute';
+    confettiPiece.style.width = `${size}px`;
+    confettiPiece.style.height = `${size}px`;
+    confettiPiece.style.backgroundColor = color;
+    confettiPiece.style.borderRadius = shape;
+    confettiPiece.style.left = `${leftPos}%`;
+    confettiPiece.style.top = '0';
+    confettiPiece.style.zIndex = '1000';
+    confettiPiece.style.pointerEvents = 'none';
     confettiPiece.style.animation = `confettiFall ${duration}s linear ${delay}s forwards`;
     
-    document.body.appendChild(confettiPiece);
+    container.appendChild(confettiPiece);
     
+    // Clean up after animation
     setTimeout(() => {
-        confettiPiece.remove();
-    }, (duration + delay) * 1000);
+        if (confettiPiece.parentNode) {
+            confettiPiece.parentNode.removeChild(confettiPiece);
+        }
+    }, (duration + delay) * 1000 + 100);
 }
 
-function resetGame() {
-    document.getElementById('cardContainer').innerHTML = '';
+// Reset the game with new cards
+function resetGame(fullReset = false) {
+    if (fullReset) {
+        // Reset all game state
+        score = 0;
+        currentDifficulty = 'easy';
+        scratchedCards.clear();
+        cardsRevealedInLevel = 0;
+        gameActive = true;
+        
+        // Update score display
+        const scoreValue = document.getElementById('scoreValue');
+        if (scoreValue) {
+            scoreValue.textContent = "0";
+        }
+        
+        // Reset progress bar
+        const progressBar = document.getElementById('progressBar');
+        if (progressBar) {
+            progressBar.style.width = "0%";
+        }
+        
+        // Update difficulty buttons
+        const buttons = document.querySelectorAll('.difficulty-btn');
+        buttons.forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.difficulty === 'easy');
+        });
+        
+        // Update game state indicator
+        updateGameStateIndicator();
+    }
+    
+    const cardContainer = document.getElementById('cardContainer');
+    if (!cardContainer) return;
+    
+    // Clear container
+    cardContainer.innerHTML = '';
+    
+    // Get new set of cards
     currentCards = shuffleCards();
     
+    // Create card elements
     currentCards.forEach((cardData, index) => {
-        document.getElementById('cardContainer').appendChild(
-            createCard(cardData.content, cardData.type, cardData.image, index)
+        const card = createCard(
+            cardData.content,
+            cardData.type,
+            cardData.image,
+            cardData.difficulty,
+            index
         );
+        cardContainer.appendChild(card);
     });
 }
 
-// Add confetti piece styles
-const confettiStyles = document.createElement('style');
-confettiStyles.textContent = `
-    .confetti-piece {
-        position: absolute;
-        width: 10px;
-        height: 10px;
-        background: #ff4d6d;
-        animation: confettiFall 2s linear forwards;
-    }
-`;
-document.head.appendChild(confettiStyles);
-
-// Initialize sound effects
-function initSoundEffects() {
-    scratchSound.src = 'resources/sounds/scratch.mp3';
-    revealSound.src = 'resources/sounds/reveal.mp3';
-    confettiSound.src = 'resources/sounds/confetti.mp3';
-    scoreSound.src = 'resources/sounds/score.mp3';
-
-    // Preload sounds
-    [scratchSound, revealSound, confettiSound, scoreSound].forEach(sound => {
-        sound.load();
-        sound.volume = 0.3;
+// Handle difficulty selection
+function setDifficulty(difficultyLevel) {
+    currentDifficulty = difficultyLevel;
+    
+    // Reset scratched cards for new level
+    scratchedCards.clear();
+    cardsRevealedInLevel = 0;
+    
+    // Update active button
+    const buttons = document.querySelectorAll('.difficulty-btn');
+    buttons.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.difficulty === difficultyLevel);
     });
+    
+    // Reset game with new difficulty
+    resetGame();
 }
 
-// Add theme toggle functionality
-const themeToggle = document.createElement('div');
-themeToggle.className = 'theme-toggle';
-themeToggle.innerHTML = '<div class="theme-icon">🌙</div>';
-document.body.appendChild(themeToggle);
+// Create floating bubbles in the background
+function createBubbles() {
+    const bubblesContainer = document.getElementById('bubbles');
+    if (!bubblesContainer) return;
+    
+    bubblesContainer.innerHTML = '';
+    
+    for (let i = 0; i < 20; i++) {
+        const bubble = document.createElement('div');
+        bubble.classList.add('bubble');
+        
+        // Random properties
+        const size = Math.random() * 80 + 20;
+        const left = Math.random() * 100;
+        const duration = Math.random() * 10 + 15;
+        const delay = Math.random() * 10;
+        
+        bubble.style.width = `${size}px`;
+        bubble.style.height = `${size}px`;
+        bubble.style.left = `${left}%`;
+        bubble.style.animationDuration = `${duration}s`;
+        bubble.style.animationDelay = `${delay}s`;
+        
+        bubblesContainer.appendChild(bubble);
+    }
+}
 
-themeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-    const icon = themeToggle.querySelector('.theme-icon');
-    icon.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
-});
+// Toggle sound on/off
+function toggleSound() {
+    soundEnabled = !soundEnabled;
+    
+    // Update all audio elements
+    [scratchSound, revealSound, confettiSound, scoreSound, levelUpSound, gameOverSound].forEach(sound => {
+        sound.muted = !soundEnabled;
+    });
+    
+    // Update icon
+    const soundIcon = document.querySelector('.sound-icon');
+    if (soundIcon) {
+        soundIcon.textContent = soundEnabled ? '🔊' : '🔇';
+    }
+    
+    // Save preference
+    localStorage.setItem('soundEnabled', soundEnabled);
+}
 
-// Add dark mode styles
-const darkModeStyles = document.createElement('style');
-darkModeStyles.textContent = `
-    body.dark-mode {
-        background: linear-gradient(135deg, #2c1338, #1a0f24);
+// Toggle game state (pause/play)
+function toggleGameState() {
+    gameActive = !gameActive;
+    updateGameStateIndicator();
+    
+    // Show pause overlay if paused
+    let pauseOverlay = document.getElementById('pauseOverlay');
+    if (!pauseOverlay) {
+        pauseOverlay = document.createElement('div');
+        pauseOverlay.id = 'pauseOverlay';
+        pauseOverlay = document.createElement('div');
+        pauseOverlay.id = 'pauseOverlay';
+        pauseOverlay.className = 'pause-overlay';
+        
+        const pauseMessage = document.createElement('div');
+        pauseMessage.className = 'pause-message';
+        pauseMessage.innerHTML = '<h2>Game Paused</h2><p>Click the play button to continue</p>';
+        
+        pauseOverlay.appendChild(pauseMessage);
+        document.body.appendChild(pauseOverlay);
     }
     
-    body.dark-mode .card {
-        background: linear-gradient(135deg, #3a1f47, #2c1338);
-    }
-    
-    body.dark-mode .modal-content {
-        background: linear-gradient(135deg, #3a1f47, #2c1338);
-        color: white;
-    }
-    
-    body.dark-mode #modalCard p {
-        background-color: rgba(255, 255, 255, 0.1);
-        color: white;
-    }
-    
-    body.dark-mode .difficulty-btn {
-        background: rgba(255, 255, 255, 0.1);
-    }
-    
-    body.dark-mode .difficulty-btn:hover,
-    body.dark-mode .difficulty-btn.active {
-        background: rgba(255, 255, 255, 0.2);
-    }
-`;
-document.head.appendChild(darkModeStyles);
+    pauseOverlay.style.display = gameActive ? 'none' : 'flex';
+}
 
-// Initialize the game with sound effects
-window.addEventListener('load', () => {
+// Update game state indicator (play/pause button)
+function updateGameStateIndicator() {
+    const gameStateIcon = document.querySelector('.game-state-icon');
+    if (gameStateIcon) {
+        gameStateIcon.textContent = gameActive ? '⏸️' : '▶️';
+        gameStateIcon.setAttribute('title', gameActive ? 'Pause Game' : 'Resume Game');
+    }
+}
+
+// Initialize the game
+function initGame() {
+    // Initialize sounds
     initSoundEffects();
-    resetGame();
     
-    // Save theme preference
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-        document.body.classList.add('dark-mode');
-        themeToggle.querySelector('.theme-icon').textContent = '☀️';
-    }
-});
-
-// Save theme preference when changed
-themeToggle.addEventListener('click', () => {
-    const isDark = document.body.classList.contains('dark-mode');
-    localStorage.setItem('theme', isDark ? 'dark' : 'light');
-});
-
-window.onload = function () {
-    // Define custom animation for confetti pieces
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes confettiFall {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-        }
-        
-        @keyframes flashTitle {
-            0%, 100% { text-shadow: 0 0 5px rgba(255, 255, 255, 0.8); }
-            50% { text-shadow: 0 0 20px rgba(255, 77, 109, 0.8); }
-        }
-        
-        h1 {
-            animation: flashTitle 3s infinite;
-        }
-        
-        .modal-opening {
-            animation: fadeIn 0.3s ease-in-out;
-        }
-        
-        .modal-closing {
-            animation: fadeOut 0.3s ease-in-out;
-        }
-        
-        @keyframes fadeOut {
-            0% { opacity: 1; }
-            100% { opacity: 0; }
-        }
-    `;
-    document.head.appendChild(style);
+    // Create card grid
+    resetGame(true);
     
-    // Load sounds
-    if (!scratchSound.src) {
-        // If sound file doesn't exist, create a placeholder
-        console.log("Sound files not found. Game will run without sound effects.");
+    // Create background bubbles
+    createBubbles();
+    
+    // Load high score from local storage
+    const savedHighScore = localStorage.getItem('highScore');
+    if (savedHighScore !== null) {
+        highScore = parseInt(savedHighScore);
+        
+        // Update high score display
+        const highScoreDisplay = document.querySelector('.high-score');
+        if (highScoreDisplay) {
+            highScoreDisplay.innerHTML = `High Score: ${highScore}`;
+        }
     }
     
-    resetGame();
-    
-        // Add mobile touch instructions
-        const instructions = document.createElement('p');
-        instructions.className = 'touch-instructions';
-        instructions.innerHTML = '📱 Scratch the card with your finger to reveal the dare!';
-        instructions.style.cssText = `
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.2);
-            padding: 10px 20px;
-            border-radius: 20px;
-            font-size: 0.9rem;
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 1000;
-        `;
-        document.body.appendChild(instructions);
-    
-        // Show instructions only on touch devices
-        if ('ontouchstart' in window) {
-            instructions.style.opacity = '1';
-            setTimeout(() => {
-                instructions.style.opacity = '0';
-                setTimeout(() => instructions.remove(), 300);
-            }, 3000);
+    // Load sound preference from local storage
+    const savedSoundPreference = localStorage.getItem('soundEnabled');
+    if (savedSoundPreference !== null) {
+        soundEnabled = savedSoundPreference === 'true';
+        
+        // Update sound icon
+        const soundIcon = document.querySelector('.sound-icon');
+        if (soundIcon) {
+            soundIcon.textContent = soundEnabled ? '🔊' : '🔇';
         }
+    }
     
-        // Add sound toggle button
-        const soundToggle = document.createElement('div');
-        soundToggle.className = 'sound-toggle';
-        soundToggle.innerHTML = '<div class="sound-icon">🔊</div>';
-        soundToggle.style.cssText = `
+    // Add pause/play button click handler
+    const gameStateButton = document.querySelector('.game-state-button');
+    if (gameStateButton) {
+        gameStateButton.addEventListener('click', toggleGameState);
+    }
+    
+    // Add sound toggle click handler
+    const soundButton = document.querySelector('.sound-button');
+    if (soundButton) {
+        soundButton.addEventListener('click', toggleSound);
+    }
+    
+    // Add difficulty button click handlers
+    const difficultyButtons = document.querySelectorAll('.difficulty-btn');
+    difficultyButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            setDifficulty(button.dataset.difficulty);
+        });
+    });
+    
+    // Add event listener for modal close button
+    const closeButton = document.querySelector('.close-modal');
+    if (closeButton) {
+        closeButton.addEventListener('click', closeModal);
+    }
+    
+    // Add window resize handler to adjust bubbles
+    window.addEventListener('resize', createBubbles);
+    
+    // Initial game state
+    updateGameStateIndicator();
+}
+
+// Initialize game when DOM is ready
+document.addEventListener('DOMContentLoaded', initGame);
+
+// Add CSS animation for confetti
+const style = document.createElement('style');
+style.textContent = `
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-10px) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+`;
+document.head.appendChild(style);
+
+// Add this new function
+function initThemeToggle() {
+    // Create theme toggle button
+    const themeToggle = document.createElement('button');
+    themeToggle.className = 'theme-toggle';
+    themeToggle.innerHTML = '🌙';
+    
+    // Add styles for theme toggle
+    const themeStyles = document.createElement('style');
+    themeStyles.textContent = `
+        .theme-toggle {
             position: fixed;
             top: 20px;
             right: 20px;
             width: 40px;
             height: 40px;
-            background: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
+            background: white;
+            border: 2px solid #ff4d6d;
             cursor: pointer;
+            z-index: 1000;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 1000;
+            font-size: 1.2rem;
             transition: all 0.3s ease;
-        `;
-        document.body.appendChild(soundToggle);
-    
-        let soundEnabled = localStorage.getItem('soundEnabled') !== 'false';
-        updateSoundIcon();
-    
-        soundToggle.addEventListener('click', () => {
-            soundEnabled = !soundEnabled;
-            localStorage.setItem('soundEnabled', soundEnabled);
-            updateSoundIcon();
-            
-            // Update all audio elements
-            [scratchSound, revealSound, confettiSound, scoreSound].forEach(sound => {
-                sound.muted = !soundEnabled;
-            });
-        });
-    
-        function updateSoundIcon() {
-            const icon = soundToggle.querySelector('.sound-icon');
-            icon.textContent = soundEnabled ? '🔊' : '🔇';
-            soundToggle.style.background = soundEnabled ? 
-                'rgba(255, 255, 255, 0.2)' : 'rgba(255, 77, 109, 0.2)';
         }
-    
-        // Add score persistence
-        let highScore = parseInt(localStorage.getItem('highScore')) || 0;
-        const scoreDisplay = document.createElement('div');
-        scoreDisplay.className = 'high-score';
-        scoreDisplay.innerHTML = `High Score: ${highScore}`;
-        scoreDisplay.style.cssText = `
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.2);
-            padding: 5px 15px;
-            border-radius: 15px;
-            font-size: 0.9rem;
-        `;
-        document.body.appendChild(scoreDisplay);
-    
-        // Update high score when current score changes
-        function updateHighScore() {
-            if (score > highScore) {
-                highScore = score;
-                localStorage.setItem('highScore', highScore);
-                scoreDisplay.innerHTML = `High Score: ${highScore}`;
-                
-                // Add celebration effect
-                scoreDisplay.style.animation = 'pulse 0.5s ease';
-                setTimeout(() => {
-                    scoreDisplay.style.animation = '';
-                }, 500);
-            }
+        
+        .theme-toggle:hover {
+            transform: scale(1.1);
         }
+    `;
+    document.head.appendChild(themeStyles);
     
-        // Add pulse animation for high score
-        const pulseAnimation = document.createElement('style');
-        pulseAnimation.textContent = `
-            @keyframes pulse {
-                0% { transform: translateX(-50%) scale(1); }
-                50% { transform: translateX(-50%) scale(1.2); }
-                100% { transform: translateX(-50%) scale(1); }
-            }
-        `;
-        document.head.appendChild(pulseAnimation);
-    
-        // Initialize sounds with current mute state
-        [scratchSound, revealSound, confettiSound, scoreSound].forEach(sound => {
-            sound.muted = !soundEnabled;
+        // Load saved theme preference
+        const savedTheme = localStorage.getItem('darkMode');
+        if (savedTheme === 'true') {
+            document.body.classList.add('dark-mode');
+            themeToggle.innerHTML = '☀️';
+        }
+        
+        // Add click handler
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            themeToggle.innerHTML = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
         });
-    };
-
-    // Add at the start of scratch.js
-window.addEventListener('load', () => {
-    console.log('Document location:', document.location.href);
-    console.log('Checking image paths...');
-    cardsData.forEach(card => {
-        const img = new Image();
-        img.onload = () => console.log(`✅ Image loaded: ${card.image}`);
-        img.onerror = () => console.log(`❌ Image failed: ${card.image}`);
-        img.src = card.image;
-    });
-});
-
-
-function initializeCanvas() {
-    scratchCanvas.width = 300;
-    scratchCanvas.height = 200;
-
-    // Ensure the canvas has valid dimensions before drawing
-    if (scratchCanvas.width === 0 || scratchCanvas.height === 0) {
-        console.error("Canvas dimensions are invalid!");
-        return;
+        
+        document.body.appendChild(themeToggle);
     }
 
-    ctx.fillStyle = "gray";
-    ctx.fillRect(0, 0, scratchCanvas.width, scratchCanvas.height);
-    totalPixels = scratchCanvas.width * scratchCanvas.height;
+// Add dark mode styles
+const darkModeStyles = document.createElement('style');
+darkModeStyles.textContent = `
+body.dark-mode {
+background: linear-gradient(135deg, #2c1338, #1a0f24);
 }
+
+body.dark-mode .card {
+background: linear-gradient(135deg, #3a1f47, #2c1338);
+}
+
+body.dark-mode .modal-content {
+background: linear-gradient(135deg, #3a1f47, #2c1338);
+color: white;
+}
+
+body.dark-mode #modalCard p {
+background-color: rgba(255, 255, 255, 0.1);
+color: white;
+}
+
+body.dark-mode .difficulty-btn {
+background: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .difficulty-btn:hover,
+body.dark-mode .difficulty-btn.active {
+background: rgba(255, 255, 255, 0.2);
+}
+
+/* Adjust title color in dark mode */
+body.dark-mode h1 {
+color: #dedede; /* Lighter shade for dark mode title */
+}
+`;
+document.head.appendChild(darkModeStyles);
+
+// Initialize the theme toggle button   
+initThemeToggle();
+
+//  CSS for game result modal
+const modalStyles = document.createElement('style');
+modalStyles.textContent = `
+.game-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #ffcdd2, #f8bbd0);
+    padding: 2rem;
+    border-radius: 20px;
+    text-align: center;
+    max-width: 90%;
+    width: 400px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h2 {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+
+.modal-content p {
+    margin: 1rem 0;
+    font-size: 1.2rem;
+}
+
+#newHighScore {
+    color: #ff4d6d;
+    font-weight: bold;
+    font-size: 1.4rem;
+    margin: 1rem 0;
+}
+
+.button-container {
+    margin-top: 1.5rem;
+}
+
+.game-button {
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 25px;
+    background: linear-gradient(135deg, #ff4d6d, #ff758f);
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.game-button:hover {
+    transform: scale(1.05);
+}
+`;
+document.head.appendChild(modalStyles);
+
+
