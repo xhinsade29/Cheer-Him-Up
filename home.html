@@ -4,63 +4,80 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Love Surprises ✨</title>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="styles/home.css"> 
+   
 </head>
 <body>
+    <div id="particles-js" class="particles-js"></div>
+    
+    <div class="theme-toggle" id="themeToggle">
+        <div class="theme-icon">🌙</div>
+    </div>
+    
     <div class="container">
-        <h1>Select Your Heart's Desire ✨</h1>
+        <div class="header animate__animated animate__fadeInDown">
+            <h1>Select Your Heart's Desire 💕</h1>
+            <p class="subtitle">Choose your magical love surprise below</p>
+            <div class="divider"></div>
+        </div>
         
         <div class="card-container">
-            <div class="card">
+            <div class="card animate__animated animate__zoomIn" data-delay="0.1s">
                 <div class="card-image">
                     <img src="resources/lib-home/hearts.gif" alt="Hearts">
                 </div>
                 <h3 class="card-title">Hearts Surprise</h3>
                 <a href="hearts.html" class="card-link">Open the Magic ✨</a>
             </div>
-
-            <div class="card">
+            
+            <div class="card animate__animated animate__zoomIn" data-delay="0.2s">
                 <div class="card-image">
                     <img src="resources/lib-home/quiz.gif" alt="Quiz">
                 </div>
                 <h3 class="card-title">Would You Rather?</h3>
                 <a href="quiz.html" class="card-link">Take the Quiz 💭</a>
             </div>
-
-            <div class="card">
+            
+            <div class="card animate__animated animate__zoomIn" data-delay="0.3s">
                 <div class="card-image">
                     <img src="resources/lib-home/hug-shy.gif" alt="Hug">
                 </div>
                 <h3 class="card-title">Virtual Hug</h3>
                 <a href="hug.html" class="card-link">Get a Hug 🤗</a>
             </div>
-
-            <div class="card">
+            
+            <div class="card animate__animated animate__zoomIn" data-delay="0.4s">
                 <div class="card-image">
                     <img src="resources/lib-home/dare.gif" alt="Scratch">
                 </div>
-                <h3 class="card-title">Challenge? </h3>
+                <h3 class="card-title">Challenge?</h3>
                 <a href="scratch.html" class="card-link">Reveal Fun Dare 💌</a>
             </div>
-
-            <div class="card">
+            
+            <div class="card animate__animated animate__zoomIn" data-delay="0.5s">
                 <div class="card-image">
                     <img src="resources/lib-home/star.gif" alt="Star">
                 </div>
                 <h3 class="card-title">Love Star</h3>
                 <a href="star.html" class="card-link">Send Love ⭐</a>
             </div>
-
-            <div class="card">
+            
+            <div class="card animate__animated animate__zoomIn" data-delay="0.6s">
                 <div class="card-image">
-                    <img src="resources/lib-home/decode.gif "alt="Morse Code">
+                    <img src="resources/lib-home/decode.gif" alt="Morse Code">
                 </div>
                 <h3 class="card-title">Morse Code</h3>
                 <a href="morse.html" class="card-link">Decode Love 💝</a>
             </div>
         </div>
+        
+        <div class="footer">
+            <p>Made with 💖 for someone special</p>
+        </div>
     </div>
-
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <script src="scripts/home.js"></script>
 </body>
 </html>
