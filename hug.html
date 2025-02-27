@@ -4,58 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Click for a Hug</title>
-    <link rel="stylesheet" href="styles/hugs.css"> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <link rel="stylesheet" href="styles/hugs.css">
+    <style>
+        
+    </style>
 </head>
 <body>
+    <!-- Particles Background Container -->
 
-    <button onclick="window.location.href='home.html'" 
-    style="position: fixed; top: 20px; left: 20px; padding: 10px 15px; background-color: #ff4d6d; border: none; border-radius: 5px; color: white; cursor: pointer; font-size: 16px; transition: 0.3s;">
-     Back to Home
-</button>
-
-    <h1>Need a Hug? 🤗</h1>
+    <div id="particles-js" class="particles-js"></div>
     
-    <!-- Hug Image Below the Heading -->
-    <img src="resources/hug.gif" alt="Cute Hug Image" class="hug-image"> 
-
-    <button class="hug-button" onclick="sendHug()">Click for a Hug</button>
-    <p id="message">Feeling down or upset? 💖</p>
-
-    <!-- Pop-up Message (Styled for better readability) -->
+    <div class="theme-toggle" id="themeToggle">
+        <div class="theme-icon">🌙</div>
+    </div>
+    
+    
+    <!-- Back Button with Icon -->
+    <button onclick="window.location.href='home.html'" class="back-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back
+    </button>
+    
+    <div class="content-container">
+        <div class="glass-card tilt-effect" id="card">
+            <h1>Need a Hug? 🤗</h1>
+            
+            <!-- Hug Image with enhanced animation -->
+            <div class="image-container">
+                <img src="resources/hug.gif" alt="Cute Hug Image" class="hug-image">
+            </div>
+            
+            <p class="message-text">Feeling down or need some warmth? A virtual hug is just a click away! 💖</p>
+            
+            <button class="hug-button" onclick="sendHug()">
+                <span class="button-text">Click for a Hug</span>
+                <span class="heart-icon">❤️</span>
+            </button>
+        </div>
+    </div>
+    
+    <!-- Enhanced Pop-up Message -->
     <div id="popup" class="popup">
-        <div class="popup-content">
+        <div class="popup-content" id="popup-card">
+            <div class="popup-header">
+                <div class="heart-decorations">❤️ ✨ ❤️</div>
+                <h2>Virtual Hug Delivered!</h2>
+                <div class="heart-decorations">❤️ ✨ ❤️</div>
+            </div>
+            
             <img src="resources/hugs.gif" alt="Virtual Hug" class="popup-gif">
             
-            <p class="popup-message">
-                💖 Here’s a big warm hug just for you! 🤗💖<br><br>
-                I know you're having a hard time, and I see how tired and stressed you are.  
-                I hope you appreciate my effort in making this web.  
-                It may not be the best, but I hope it made you smile,  
-                even just a little—with my corny jokes and flirty lines. 😊💕<br><br>
-                
-                Always remember, you hold a special place in my heart.  
-                Your presence brings peace to my world. Choose happiness,  
-                embrace the things that bring you joy, and never forget—  
-                I'm always here to support you through every high and low.  
-                Stay safe, drive carefully, and may you find the peace you’re looking for. 💖
-            </p>
-            <button class="close-btn" onclick="closePopup()">Close</button>
+            <div class="popup-message-container">
+                <p class="popup-message">
+                    💖 Here's a big warm hug just for you! 🤗💖<br><br>
+                    I know you're having a hard time, and I see how tired and stressed you are. 
+                    I hope you appreciate my effort in making this web. 
+                    It may not be the best, but I hope it made you smile, 
+                    even just a little—with my corny jokes and flirty lines. 😊💕<br><br>
+                    
+                    Always remember, you hold a special place in my heart. 
+                    Your presence brings peace to my world. Choose happiness, 
+                    embrace the things that bring you joy, and never forget— 
+                    I'm always here to support you through every high and low. 
+                    Stay safe, drive carefully, and may you find the peace you're looking for. 💖
+                </p>
+            </div>
+            
+            <button class="close-btn" onclick="closePopup()">
+                <span>Send Love Back</span> 💖
+            </button>
         </div>
     </div>
 
-    <script>
-        function sendHug() {
-            document.getElementById("popup").style.display = "flex";
-
-            // Restart GIF animation
-            let gif = document.querySelector(".popup-gif");
-            gif.src = gif.src; 
-        }
-
-        function closePopup() {
-            window.location.href = "home.html"; // Redirect to home.html
-        }
-    </script>
-
+    <script src="scripts/hugs.js"></script>
 </body>
 </html>
