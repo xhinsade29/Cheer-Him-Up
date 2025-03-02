@@ -1,3 +1,81 @@
+// Add at the beginning of the file
+
+function createStars(count) {
+    for (let i = 0; i < count; i++) {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.animationDelay = `${Math.random() * 2}s`;
+        document.body.appendChild(star);
+    }
+}
+
+function createEnhancedFireflies(count) {
+    for (let i = 0; i < count; i++) {
+        const firefly = document.createElement('div');
+        firefly.className = 'firefly';
+        firefly.style.left = `${Math.random() * 100}%`;
+        firefly.style.top = `${Math.random() * 100}%`;
+        firefly.style.animationDelay = `${Math.random() * 15}s`;
+        firefly.style.opacity = Math.random() * 0.5 + 0.5;
+        firefly.style.scale = Math.random() * 0.5 + 0.5;
+        document.body.appendChild(firefly);
+    }
+}
+
+// Add this at the beginning of your JavaScript file
+
+function createFireflies(count) {
+    for (let i = 0; i < count; i++) {
+        const firefly = document.createElement('div');
+        firefly.className = 'firefly';
+        firefly.style.left = Math.random() * window.innerWidth + 'px';
+        firefly.style.top = Math.random() * window.innerHeight + 'px';
+        firefly.style.animationDelay = Math.random() * 15 + 's';
+        document.body.appendChild(firefly);
+    }
+}
+
+function createSparkles() {
+    setInterval(() => {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        sparkle.style.left = Math.random() * window.innerWidth + 'px';
+        sparkle.style.top = Math.random() * window.innerHeight + 'px';
+        document.body.appendChild(sparkle);
+        
+        setTimeout(() => sparkle.remove(), 4000);
+    }, 200);
+}
+
+// Create fireflies and sparkles when the page loads
+window.addEventListener('load', () => {
+    createStars(50); // Add 50 twinkling stars
+    createEnhancedFireflies(30); // Increase fireflies to 30
+    createSparkles();
+    
+    // Add dynamic bright spots
+    setInterval(() => {
+        const spot = document.createElement('div');
+        spot.className = 'bright-spot';
+        spot.style.left = `${Math.random() * 100}%`;
+        spot.style.top = `${Math.random() * 100}%`;
+        spot.style.opacity = '0';
+        document.body.appendChild(spot);
+        
+        requestAnimationFrame(() => {
+            spot.style.opacity = '0.5';
+            spot.style.transition = 'all 3s ease-in-out';
+        });
+        
+        setTimeout(() => {
+            spot.style.opacity = '0';
+            setTimeout(() => spot.remove(), 3000);
+        }, 5000);
+    }, 8000);
+});
+
 const messages = {
     dots: [
         "●●● ●● ●●●●",
@@ -132,3 +210,17 @@ function addMusicControls() {
 
 // Initialize music controls
 document.addEventListener('DOMContentLoaded', addMusicControls);
+
+
+ // Theme toggle
+ const themeToggle = document.getElementById('themeToggle');
+ const themeIcon = themeToggle.querySelector('.theme-icon');
+ 
+ themeToggle.addEventListener('click', () => {
+     document.body.classList.toggle('dark-mode');
+     if (document.body.classList.contains('dark-mode')) {
+         themeIcon.textContent = '☀️';
+     } else {
+         themeIcon.textContent = '🌙';
+     }
+ });

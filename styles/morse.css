@@ -72,6 +72,7 @@ h1 {
                 inset 0 -2px 4px rgba(255, 151, 183, 0.1);
     position: relative;
     overflow: hidden;
+    animation: buttonPulse 2s ease-in-out infinite;
 }
 
 .number-btn:hover {
@@ -289,4 +290,340 @@ button:hover::before {
 
 .popup-btn:hover {
     background-color: #ff1a3c;
+}
+
+
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+    transition: all 0.3s;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+}
+
+.theme-icon {
+    font-size: 1.5rem;
+}
+
+.dark-mode {
+    background: linear-gradient(135deg, #2c3e50 0%, #4a5568 50%, #2c3e50 100%);
+    color: #f5f5f5; /* Light text color for dark mode */
+}
+
+.dark-mode h1 {
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.dark-mode .number-container {
+    background: rgba(40, 40, 40, 0.8);
+}
+
+.dark-mode .number-btn {
+    background: #4a5568;
+    color: #fff;
+}
+
+.dark-mode .number-btn:hover {
+    background: #2c3e50;
+}
+
+.dark-mode .message-card {
+    background: rgba(40, 40, 40, 0.9);
+    color: #fff;
+}
+
+.dark-mode #dotCode {
+    color: #e0e0e0;
+}
+
+.dark-mode #decodedMessage {
+    color: #fff;
+    background: rgba(255, 151, 183, 0.2);
+}
+
+.dark-mode .close-btn {
+    color: #fff;
+}
+
+.dark-mode .footer {
+    color: #bbb;
+}
+
+/* Firefly Element */
+.firefly {
+    position: fixed;
+    width: 3px;
+    height: 3px;
+    background-color: #fff7d6;
+    border-radius: 50%;
+    box-shadow: 0 0 15px #ffee8f, 0 0 20px #ffee8f, 0 0 30px #ffee8f;
+    animation: float 15s ease-in-out infinite,
+                glow 2s ease-in-out infinite;
+    pointer-events: none;
+    z-index: 1;
+    mix-blend-mode: screen;
+}
+
+/* Glowing Tree */
+.glowing-tree {
+    position: fixed;
+    bottom: 0;
+    right: 5%;
+    width: 200px;
+    height: 300px;
+    background: linear-gradient(to bottom, transparent 0%, #234537 100%);
+    clip-path: polygon(50% 0, 80% 100%, 20% 100%);
+    opacity: 0.6;
+    z-index: 0;
+}
+
+.glowing-tree::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at center, rgba(157, 255, 180, 0.3) 0%, transparent 70%);
+    animation: treeGlow 4s ease-in-out infinite;
+}
+
+/* Firefly Animation */
+@keyframes float {
+    0% {
+        transform: translate(0, 0);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(100px, -100px);
+        opacity: 0;
+    }
+}
+
+/* Tree Glow Animation */
+@keyframes treeGlow {
+    0%, 100% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 0.6;
+    }
+}
+
+/* Dark Mode Adjustments */
+.dark-mode .glowing-tree {
+    opacity: 0.8;
+}
+
+.dark-mode .firefly {
+    box-shadow: 0 0 15px #ffd700, 0 0 20px #ffd700, 0 0 30px #ffd700;
+}
+
+/* Flowing Light Effects */
+.flowing-light {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 0;
+    background: 
+        repeating-linear-gradient(
+            120deg,
+            transparent 0%,
+            rgba(255, 151, 183, 0.1) 10%,
+            transparent 20%
+        );
+    animation: flowingLight 8s linear infinite;
+    opacity: 0.5;
+}
+
+.light-orb {
+    position: fixed;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, 
+        rgba(255, 255, 255, 0.8) 0%,
+        rgba(255, 151, 183, 0.3) 30%,
+        transparent 70%
+    );
+    border-radius: 50%;
+    filter: blur(8px);
+    animation: floatOrb 15s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.sparkle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: white;
+    border-radius: 50%;
+    filter: blur(1px);
+    animation: sparkle 4s ease-in-out infinite;
+}
+
+/* Enhanced Tree Animation */
+.glowing-tree::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, 
+        transparent 0%,
+        rgba(255, 255, 255, 0.1) 50%,
+        transparent 100%
+    );
+    animation: treeShimmer 3s linear infinite;
+}
+
+/* Animation Keyframes */
+@keyframes flowingLight {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 200% 0%; }
+}
+
+@keyframes floatOrb {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(30px, -30px); }
+    50% { transform: translate(-30px, -60px); }
+    75% { transform: translate(-60px, -30px); }
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(0); }
+    50% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes treeShimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* Enhanced Dark Mode Effects */
+.dark-mode .flowing-light {
+    background: repeating-linear-gradient(
+        120deg,
+        transparent 0%,
+        rgba(157, 255, 180, 0.1) 10%,
+        transparent 20%
+    );
+}
+
+.dark-mode .light-orb {
+    background: radial-gradient(circle, 
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(157, 255, 180, 0.2) 30%,
+        transparent 70%
+    );
+}
+
+/* Enhanced Button Animation */
+@keyframes buttonPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+/* Enhanced Light Effects */
+.aurora-light {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    background: 
+        linear-gradient(45deg, 
+            rgba(255, 182, 193, 0.1) 0%,
+            rgba(255, 218, 224, 0.1) 25%,
+            rgba(255, 182, 193, 0.1) 50%,
+            rgba(255, 218, 224, 0.1) 75%,
+            rgba(255, 182, 193, 0.1) 100%);
+    filter: blur(40px);
+    animation: auroraFlow 15s linear infinite;
+    z-index: 0;
+}
+
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 50%;
+    animation: twinkle 1s ease-in-out infinite;
+}
+
+.bright-spot {
+    position: fixed;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, 
+        rgba(255, 255, 255, 0.4) 0%,
+        rgba(255, 151, 183, 0.2) 40%,
+        transparent 70%);
+    filter: blur(15px);
+    animation: brightSpotFloat 20s ease-in-out infinite;
+    pointer-events: none;
+}
+
+/* New Animation Keyframes */
+@keyframes auroraFlow {
+    0% { transform: translateX(-50%) rotate(0deg); }
+    100% { transform: translateX(50%) rotate(180deg); }
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes brightSpotFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(100px, -50px) scale(1.2); }
+    50% { transform: translate(50px, -100px) scale(0.8); }
+    75% { transform: translate(-50px, -25px) scale(1.1); }
+}
+
+@keyframes glow {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.5); }
+}
+
+/* Enhanced Dark Mode Effects */
+.dark-mode .aurora-light {
+    background: 
+        linear-gradient(45deg, 
+            rgba(157, 255, 180, 0.1) 0%,
+            rgba(157, 255, 180, 0.05) 25%,
+            rgba(157, 255, 180, 0.1) 50%,
+            rgba(157, 255, 180, 0.05) 75%,
+            rgba(157, 255, 180, 0.1) 100%);
+}
+
+.dark-mode .bright-spot {
+    background: radial-gradient(circle, 
+        rgba(157, 255, 180, 0.3) 0%,
+        rgba(157, 255, 180, 0.1) 40%,
+        transparent 70%);
 }
