@@ -1,5 +1,5 @@
 // Background music setup
-const bgMusic = new Audio('resources/music-effects/blue.mp3');
+const bgMusic = new Audio('music-effects/blue.mp3');
 bgMusic.loop = true;
 bgMusic.volume = 0.3;
 
@@ -35,9 +35,9 @@ const positiveAffirmations = [
 document.addEventListener('DOMContentLoaded', function() {
     // Preload heart images to avoid delay
     preloadImages([
-        'resources/lib-hearts/heart1.png',
-        'resources/lib-hearts/heart2.png',
-        'resources/lib-hearts/heart3.png'
+        'lib-hearts/heart1.png',
+        'lib-hearts/heart2.png',
+        'lib-hearts/heart3.png'
     ]);
     
     // Initialize animations and events
@@ -171,9 +171,9 @@ function createFloatingHearts() {
     if (!heartsContainer) return;
     
     const heartImages = [
-        'resources/lib-hearts/heart1.png',
-        'resources/lib-hearts/heart2.png',
-        'resources/lib-hearts/heart3.png'
+        'lib-hearts/heart1.png',
+        'lib-hearts/heart2.png',
+        'lib-hearts/heart3.png'
     ];
     
     // Clear any existing hearts

@@ -1,19 +1,19 @@
 // Define card data with dares
 const cardsData = [
-    { type: 'dare', content: 'Sing a love song… but like a crying baby! 😭🎤', image: '../resources/lib-scratch/baby_crying_sing.gif', difficulty: 'easy' },
-    { type: 'dare', content: 'Dance like a worm trying to escape from a bird!', image: '../resources/lib-scratch/worm_dance.gif', difficulty: 'easy' },
-    { type: 'dare', content: 'Act like a chicken who just found out it can fly! 🐔✨', image: '../resources/lib-scratch/flying_chicken.jpg', difficulty: 'easy' },
-    { type: 'dare', content: 'Do a slow-motion fight scene with an invisible enemy! 🥋⚔️', image: '../resources/lib-scratch/slowmo_fight.jpg', difficulty: 'medium' },
-    { type: 'dare', content: 'Do the alien dance until your next turn! 👽🛸', image: '../resources/lib-scratch/alien_dance.gif', difficulty: 'medium' },
-    { type: 'dare', content: 'Pretend you are a lost tourist asking for directions… in gibberish! 🗺️🤣', image: '../resources/lib-scratch/lost_tourist1.jpg', difficulty: 'medium' },
-    { type: 'dare', content: 'Try to sell an invisible product like a TV commercial! 📺😂', image: '../resources/lib-scratch/salesman.jpg', difficulty: 'medium' },
-    { type: 'dare', content: 'Mimic the person on your right for the next 2 minutes! 🪞😆', image: '../resources/lib-scratch/mirror_mimic.jpg', difficulty: 'medium' },
-    { type: 'dare', content: 'Tell a joke, but whisper it like its a top-secret mission! 🤫', image: '../resources/lib-scratch/whisper_joke.jpg', difficulty: 'easy' },
-    { type: 'dare', content: 'Pretend youre on a cooking show and explain how to make Invisible Soup! 🍲👻', image: '../resources/lib-scratch/cooking_show.jpg', difficulty: 'medium' },
-    { type: 'dare', content: 'Do 5 jumping jacks while laughing like an evil villain! 😈😂', image: '../resources/lib-scratch/evil_laugh.gif', difficulty: 'hard' },
-    { type: 'dare', content: 'Hug the nearest object and say, "I will never let go!" 🛟💔', image: '../resources/lib-scratch/never_let_go.gif', difficulty: 'easy' },
-    { type: 'dare', content: 'Try to make the person next to you laugh within 10 seconds using only your face! 🤪', image: '../resources/lib-scratch/funny_face.gif', difficulty: 'medium' },
-    { type: 'dare', content: 'Pretend youre a cat stuck in a tree and need help! 🐱🌳', image: '../resources/lib-scratch/cat_stuck.jpg', difficulty: 'hard' }
+    { type: 'dare', content: 'Sing a love song… but like a crying baby! 😭🎤', image: 'lib-scratch/baby_crying_sing.gif', difficulty: 'easy' },
+    { type: 'dare', content: 'Dance like a worm trying to escape from a bird!', image: 'lib-scratch/worm_dance.gif', difficulty: 'easy' },
+    { type: 'dare', content: 'Act like a chicken who just found out it can fly! 🐔✨', image: 'lib-scratch/flying_chicken.jpg', difficulty: 'easy' },
+    { type: 'dare', content: 'Do a slow-motion fight scene with an invisible enemy! 🥋⚔️', image: 'lib-scratch/slowmo_fight.jpg', difficulty: 'medium' },
+    { type: 'dare', content: 'Do the alien dance until your next turn! 👽🛸', image: 'lib-scratch/alien_dance.gif', difficulty: 'medium' },
+    { type: 'dare', content: 'Pretend you are a lost tourist asking for directions… in gibberish! 🗺️🤣', image: 'lib-scratch/lost_tourist1.jpg', difficulty: 'medium' },
+    { type: 'dare', content: 'Try to sell an invisible product like a TV commercial! 📺😂', image: 'lib-scratch/salesman.jpg', difficulty: 'medium' },
+    { type: 'dare', content: 'Mimic the person on your right for the next 2 minutes! 🪞😆', image: 'lib-scratch/mirror_mimic.jpg', difficulty: 'medium' },
+    { type: 'dare', content: 'Tell a joke, but whisper it like its a top-secret mission! 🤫', image: 'lib-scratch/whisper_joke.jpg', difficulty: 'easy' },
+    { type: 'dare', content: 'Pretend youre on a cooking show and explain how to make Invisible Soup! 🍲👻', image: 'lib-scratch/cooking_show.jpg', difficulty: 'medium' },
+    { type: 'dare', content: 'Do 5 jumping jacks while laughing like an evil villain! 😈😂', image: 'lib-scratch/evil_laugh.gif', difficulty: 'hard' },
+    { type: 'dare', content: 'Hug the nearest object and say, "I will never let go!" 🛟💔', image: 'lib-scratch/never_let_go.gif', difficulty: 'easy' },
+    { type: 'dare', content: 'Try to make the person next to you laugh within 10 seconds using only your face! 🤪', image: 'lib-scratch/funny_face.gif', difficulty: 'medium' },
+    { type: 'dare', content: 'Pretend youre a cat stuck in a tree and need help! 🐱🌳', image: 'lib-scratch/cat_stuck.jpg', difficulty: 'hard' }
 ];
 
 // Sound effects with error handling
@@ -37,12 +37,12 @@ let cardsRevealedInLevel = 0; // Track how many cards have been revealed in curr
 // Initialize the sound effects with error handling
 function initSoundEffects() {
     try {
-        scratchSound.src = './resources/music-effects/scratch.mp3';
-        revealSound.src = './resources/music-effects/reveal.mp3';
-        confettiSound.src = './resources/music-effects/confetti.mp3';
-        scoreSound.src = './resources/music-effects/score.mp3';
-        levelUpSound.src = './resources/music-effects/levelup.mp3'; // Add a level up sound
-        gameOverSound.src = './resources/music-effects/gameover.mp3'; // Add game over sound
+        scratchSound.src = 'music-effects/scratch.mp3';
+        revealSound.src = 'music-effects/reveal.mp3';
+        confettiSound.src = 'music-effects/confetti.mp3';
+        scoreSound.src = 'music-effects/score.mp3';
+        levelUpSound.src = 'music-effects/level-up.mp3'; // Add a level up sound
+        gameOverSound.src = 'music-effects/game-over.mp3'; // Add game over sound
         
         // Preload sounds
         [scratchSound, revealSound, confettiSound, scoreSound, levelUpSound, gameOverSound].forEach(sound => {
@@ -349,15 +349,16 @@ function initScratchEffect(container, hiddenContent) {
     
     // Set canvas dimensions to match container
     const containerRect = container.getBoundingClientRect();
-    canvas.width = containerRect.width;
-    canvas.height = containerRect.height;
     
-    // Ensure canvas has valid dimensions
+    // Ensure canvas has valid dimensions with fallback values
+    canvas.width = Math.max(300, containerRect.width || 300);
+    canvas.height = Math.max(400, containerRect.height || 400);
+    
+    // Log dimensions for debugging
     if (canvas.width <= 0 || canvas.height <= 0) {
         console.error("Invalid canvas dimensions:", canvas.width, canvas.height);
-        canvas.width = Math.max(300, containerRect.width);
-        canvas.height = Math.max(400, containerRect.height);
     }
+
     
     container.appendChild(canvas);
     
@@ -1059,4 +1060,49 @@ modalStyles.textContent = `
 `;
 document.head.appendChild(modalStyles);
 
+// Add this at the top of your quiz.js file
+const bgMusic = new Audio('music-effects/blue.mp3');
+bgMusic.loop = true;
+bgMusic.volume = 0.3;
 
+// Add music controls to the page
+function addMusicControls() {
+    const musicButton = document.createElement('button');
+    musicButton.id = 'musicToggle';
+    musicButton.innerHTML = '🔇'; // Initial state: muted
+    musicButton.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 10px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(255, 255, 255, 0.8);
+        cursor: pointer;
+        z-index: 1000;
+    `;
+
+    document.body.appendChild(musicButton);
+
+    let isPlaying = false;
+
+    musicButton.addEventListener('click', () => {
+        if (isPlaying) {
+            bgMusic.pause();
+            musicButton.innerHTML = '🔇';
+        } else {
+            bgMusic.play()
+                .then(() => {
+                    musicButton.innerHTML = '🔊';
+                })
+                .catch(err => {
+                    console.log('Music playback failed:', err);
+                    musicButton.innerHTML = '❌';
+                });
+        }
+        isPlaying = !isPlaying;
+    });
+}
+
+// Initialize music controls
+document.addEventListener('DOMContentLoaded', addMusicControls);

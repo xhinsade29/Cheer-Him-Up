@@ -724,3 +724,31 @@ h1 {
       height: 40px;
   }
 }
+
+/* Adjusted positioning for music button and theme toggle on smaller screens */
+@media (max-width: 768px) {
+  .music-button {
+    right: 80px; /* Move music button to the left of theme toggle */
+  }
+  
+  /* Optional: Make buttons slightly smaller on mobile */
+  .music-button,
+  .theme-toggle {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+  }
+}
+
+/* For very small screens, stack them vertically */
+@media (max-width: 480px) {
+  .music-button {
+    top: 20px;
+    right: 20px;
+  }
+  
+  .theme-toggle {
+    top: 80px; /* Position theme toggle below music button */
+    right: 20px;
+  }
+}

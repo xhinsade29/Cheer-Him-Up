@@ -87,9 +87,9 @@ document.addEventListener("DOMContentLoaded", function () {
     
     // Heart images
     const heartImages = [
-        "resources/lib-hearts/heart1.png", 
-        "resources/lib-hearts/heart2.png", 
-        "resources/lib-hearts/heart3.png"
+        "lib-hearts/heart1.png", 
+        "lib-hearts/heart2.png", 
+        "lib-hearts/heart3.png"
     ];
     
     // Display high score
@@ -772,19 +772,19 @@ document.addEventListener("DOMContentLoaded", function () {
             let sound;
             switch(type) {
             case "pop":
-                sound = new Audio("resources/music-effects/pop-.mp3");
+                sound = new Audio("music-effects/pop-.mp3");
                 break;
             case "special":
-                sound = new Audio("resources/music-effects/special.mp3");
+                sound = new Audio("music-effects/special.mp3");
                 break;
             case "levelUp":
-                sound = new Audio("resources/music-effects/level-up.mp3");
+                sound = new Audio("music-effects/level-up.mp3");
                 break;
             case "gameOver":
-                sound = new Audio("resources/music-effects/game-over.mp3");
+                sound = new Audio("music-effects/game-over.mp3");
                 break;
             case "start":
-                sound = new Audio("resources/music-effects/game-start.mp3");
+                sound = new Audio("music-effects/game-start.mp3");
                 break;
             }
 

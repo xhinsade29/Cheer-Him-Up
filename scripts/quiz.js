@@ -94,3 +94,46 @@ function goHome() {
 }
 
 loadQuestion();
+
+
+// Add music controls to the page
+function addMusicControls() {
+    const musicButton = document.createElement('button');
+    musicButton.id = 'musicToggle';
+    musicButton.innerHTML = '🔇'; // Initial state: muted
+    musicButton.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 10px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(255, 255, 255, 0.8);
+        cursor: pointer;
+        z-index: 1000;
+    `;
+
+    document.body.appendChild(musicButton);
+
+    let isPlaying = false;
+
+    musicButton.addEventListener('click', () => {
+        if (isPlaying) {
+            bgMusic.pause();
+            musicButton.innerHTML = '🔇';
+        } else {
+            bgMusic.play()
+                .then(() => {
+                    musicButton.innerHTML = '🔊';
+                })
+                .catch(err => {
+                    console.log('Music playback failed:', err);
+                    musicButton.innerHTML = '❌';
+                });
+        }
+        isPlaying = !isPlaying;
+    });
+}
+
+// Initialize music controls
+document.addEventListener('DOMContentLoaded', addMusicControls);

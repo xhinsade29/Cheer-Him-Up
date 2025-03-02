@@ -1,11 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&family=Fredoka+One&display=swap');
 
+:root {
+    --primary-color: #ff4d6d;
+    --secondary-color: #ff758c;
+    --light-color: #ffb3c1;
+    --lighter-color: #ffcdd2;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     text-align: center;
-    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    background: linear-gradient(135deg, var(--secondary-color), #ff7eb3);
     color: white;
-    padding: 20px;
+    padding: clamp(10px, 5vw, 20px);
     margin: 0;
     min-height: 100vh;
     display: flex;
@@ -24,12 +43,12 @@ body {
 
 h1 {
     font-family: 'Fredoka One', cursive;
-    font-size: clamp(2rem, 5vw, 3rem);
-    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.3);
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    text-shadow: clamp(2px, 0.5vw, 4px) clamp(2px, 0.5vw, 4px) clamp(4px, 1vw, 8px) rgba(0, 0, 0, 0.3);
     animation: bounceIn 1.5s ease-in-out;
     color: #fff;
-    letter-spacing: 2px;
-    margin-bottom: 30px;
+    letter-spacing: clamp(1px, 0.5vw, 2px);
+    margin-bottom: clamp(15px, 4vh, 30px);
 }
 
 @keyframes bounceIn {
@@ -43,21 +62,21 @@ h1 {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 2vw;
-    margin-top: 20px;
+    gap: clamp(8px, 2vw, 20px);
+    margin-top: clamp(10px, 2vh, 20px);
     max-width: 95vw;
     perspective: 1000px;
 }
 
 .card {
-    width: clamp(100px, 12vw, 130px);
-    height: clamp(150px, 18vw, 190px);
+    width: clamp(70px, 12vw, 130px);
+    height: clamp(105px, 18vw, 190px);
     background: linear-gradient(135deg, #e0e0e0, #b3b3b3);
     position: relative;
     cursor: pointer;
     overflow: hidden;
-    border-radius: 15px;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+    border-radius: clamp(8px, 2vw, 15px);
+    box-shadow: 0px clamp(4px, 1vw, 8px) clamp(8px, 2vw, 15px) rgba(0, 0, 0, 0.2);
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
     animation: cardAppear 0.5s ease-in-out;
     transform-style: preserve-3d;
@@ -71,9 +90,16 @@ h1 {
     animation-delay: 0.3s;
 }
 
-.card:hover {
-    transform: scale(1.1) rotate(3deg);
-    box-shadow: 0px 15px 25px rgba(0, 0, 0, 0.3);
+/* Reduce hover effect on touch devices */
+@media (hover: hover) {
+    .card:hover {
+        transform: scale(1.05) rotate(2deg);
+        box-shadow: 0px clamp(8px, 2vw, 15px) clamp(15px, 3vw, 25px) rgba(0, 0, 0, 0.3);
+    }
+}
+
+.card:active {
+    transform: scale(0.98);
 }
 
 .card::before {
@@ -82,27 +108,28 @@ h1 {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 3rem;
+    font-size: clamp(1.5rem, 4vw, 3rem);
     font-weight: bold;
-    color: #ff4d6d;
+    color: var(--primary-color);
     opacity: 0.7;
 }
 
 button {
-    padding: 1vw 2vw;
-    font-size: clamp(14px, 1.8vw, 18px);
+    padding: clamp(8px, 1vw, 12px) clamp(16px, 2vw, 24px);
+    font-size: clamp(12px, 1.8vw, 18px);
     font-weight: bold;
     color: white;
-    background: linear-gradient(135deg, #ff4d6d, #ff758f);
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
     border: none;
-    border-radius: 25px;
+    border-radius: clamp(15px, 3vw, 25px);
     cursor: pointer;
     transition: all 0.3s ease-in-out;
-    box-shadow: 0px 4px 10px rgba(255, 77, 109, 0.4);
+    box-shadow: 0px clamp(2px, 0.5vw, 4px) clamp(5px, 1vw, 10px) rgba(255, 77, 109, 0.4);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: clamp(0.5px, 0.2vw, 1px);
     position: relative;
     overflow: hidden;
+    margin: clamp(5px, 1vh, 10px);
 }
 
 button::after {
@@ -117,19 +144,22 @@ button::after {
     transition: transform 0.6s;
 }
 
-button:hover::after {
-    transform: rotate(30deg) translateX(300%);
-}
+/* Adjust button hover for non-touch devices */
+@media (hover: hover) {
+    button:hover::after {
+        transform: rotate(30deg) translateX(300%);
+    }
 
-button:hover {
-    background: linear-gradient(135deg, #ff758f, #ffb3c1);
-    transform: scale(1.1);
-    box-shadow: 0px 6px 15px rgba(255, 77, 109, 0.6);
+    button:hover {
+        background: linear-gradient(135deg, var(--secondary-color), var(--light-color));
+        transform: scale(1.05);
+        box-shadow: 0px clamp(3px, 0.8vw, 6px) clamp(8px, 2vw, 15px) rgba(255, 77, 109, 0.6);
+    }
 }
 
 button:active {
     transform: scale(0.95);
-    box-shadow: 0px 3px 8px rgba(255, 77, 109, 0.4);
+    box-shadow: 0px clamp(1.5px, 0.4vw, 3px) clamp(4px, 1vw, 8px) rgba(255, 77, 109, 0.4);
 }
 
 .modal {
@@ -144,19 +174,20 @@ button:active {
     align-items: center;
     animation: fadeIn 0.5s ease-in-out;
     z-index: 1000;
+    padding: clamp(10px, 3vw, 20px);
 }
 
 .modal-content {
-    background: linear-gradient(to bottom right, #ffcdd2, #f8bbd0);
-    padding: 3vw;
-    border-radius: 20px;
-    width: clamp(250px, 30vw, 400px);
-    height: clamp(350px, 45vh, 500px);
+    background: linear-gradient(to bottom right, var(--lighter-color), var(--light-color));
+    padding: clamp(15px, 3vw, 30px);
+    border-radius: clamp(10px, 2vw, 20px);
+    width: clamp(250px, 90vw, 400px);
+    height: clamp(350px, 80vh, 500px);
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    box-shadow: 0px 20px 40px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px clamp(10px, 3vw, 20px) clamp(20px, 5vw, 40px) rgba(0, 0, 0, 0.5);
     animation: modalAppear 0.5s ease-in-out;
     position: relative;
     overflow: hidden;
@@ -168,24 +199,24 @@ button:active {
     left: 0;
     width: 100%;
     height: 100%;
-    border-radius: 20px;
+    border-radius: clamp(10px, 2vw, 20px);
     background: linear-gradient(135deg, #c9c9c9, #a0a0a0);
-    box-shadow: inset 0px 4px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0px clamp(2px, 0.5vw, 4px) clamp(5px, 1.3vw, 10px) rgba(0, 0, 0, 0.3);
     cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="%23FFFFFF" stroke="%23FF4D6D" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>') 12 12, auto;
 }
 
 .close {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: clamp(5px, 1.5vw, 10px);
+    right: clamp(5px, 1.5vw, 10px);
     cursor: pointer;
-    font-size: clamp(1.5rem, 2vw, 2rem);
+    font-size: clamp(1.2rem, 2vw, 2rem);
     font-weight: bold;
-    color: #ff4d6d;
+    color: var(--primary-color);
     transition: all 0.3s ease-in-out;
     z-index: 10;
-    width: 40px;
-    height: 40px;
+    width: clamp(30px, 8vw, 40px);
+    height: clamp(30px, 8vw, 40px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -193,16 +224,22 @@ button:active {
     border-radius: 50%;
 }
 
-.close:hover {
-    transform: scale(1.2) rotate(90deg);
-    color: #ff758c;
-    background-color: rgba(255, 255, 255, 0.4);
+@media (hover: hover) {
+    .close:hover {
+        transform: scale(1.2) rotate(90deg);
+        color: var(--secondary-color);
+        background-color: rgba(255, 255, 255, 0.4);
+    }
+}
+
+.close:active {
+    transform: scale(0.9);
 }
 
 .spark {
     position: absolute;
-    width: 40px;
-    height: 40px;
+    width: clamp(20px, 5vw, 40px);
+    height: clamp(20px, 5vw, 40px);
     pointer-events: none;
     background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
     border-radius: 50%;
@@ -225,11 +262,11 @@ button:active {
     pointer-events: none;
     z-index: 999;
     background-image: 
-        radial-gradient(circle, #ff758c 1px, transparent 1px),
-        radial-gradient(circle, #ffb3c1 1px, transparent 1px),
-        radial-gradient(circle, #ff4d6d 2px, transparent 2px),
-        radial-gradient(circle, #ffcdd2 2px, transparent 2px);
-    background-size: 30px 30px;
+        radial-gradient(circle, var(--secondary-color) 1px, transparent 1px),
+        radial-gradient(circle, var(--light-color) 1px, transparent 1px),
+        radial-gradient(circle, var(--primary-color) 2px, transparent 2px),
+        radial-gradient(circle, var(--lighter-color) 2px, transparent 2px);
+    background-size: clamp(15px, 4vw, 30px) clamp(15px, 4vw, 30px);
     background-position: 0 0, 15px 15px, 20px 5px, 5px 20px;
     animation: confettiFall 2s linear forwards;
 }
@@ -256,36 +293,79 @@ button:active {
 
 #modalCard img {
     max-width: 100%;
-    max-height: 200px;
-    border-radius: 10px;
-    margin-bottom: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    max-height: clamp(120px, 35vh, 200px);
+    border-radius: clamp(5px, 1.3vw, 10px);
+    margin-bottom: clamp(8px, 2vw, 15px);
+    box-shadow: 0 clamp(3px, 0.7vw, 5px) clamp(8px, 2vw, 15px) rgba(0, 0, 0, 0.2);
 }
 
 #modalCard p {
-    font-size: 1.2rem;
+    font-size: clamp(0.9rem, 3vw, 1.2rem);
     font-weight: bold;
-    color: #ff4d6d;
-    padding: 10px;
+    color: var(--primary-color);
+    padding: clamp(5px, 1.3vw, 10px);
     background-color: rgba(255, 255, 255, 0.7);
-    border-radius: 10px;
-    margin-top: 10px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    border-radius: clamp(5px, 1.3vw, 10px);
+    margin-top: clamp(5px, 1.3vw, 10px);
+    box-shadow: 0 clamp(1.5px, 0.4vw, 3px) clamp(5px, 1.3vw, 10px) rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    word-wrap: break-word;
 }
 
-@media (max-width: 768px) {
+/* Landscape-specific adjustments for mobile devices */
+@media (max-height: 500px) and (orientation: landscape) {
     .container {
-        gap: 15px;
+        margin-top: 10px;
+    }
+    
+    h1 {
+        margin-bottom: 10px;
+        font-size: clamp(1.5rem, 4vw, 2.5rem);
     }
     
     .card {
-        width: 100px;
-        height: 150px;
+        width: clamp(60px, 10vw, 100px);
+        height: clamp(90px, 15vw, 150px);
     }
     
     .modal-content {
-        width: 80%;
-        height: auto;
-        max-height: 80vh;
+        height: 90vh;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-content: center;
+    }
+    
+    #modalCard img {
+        max-height: 30vh;
+    }
+}
+
+/* Small screens adjustments */
+@media (max-width: 380px) {
+    .card {
+        width: calc(25% - 10px);
+        height: calc((25vw - 10px) * 1.5);
+        min-width: 60px;
+        min-height: 90px;
+    }
+    
+    .card::before {
+        font-size: 1.5rem;
+    }
+    
+    button {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+}
+
+/* Ensure proper rendering on very large screens */
+@media (min-width: 1400px) {
+    .container {
+        max-width: 1200px;
+    }
+    
+    body {
+        font-size: 18px;
     }
 }
