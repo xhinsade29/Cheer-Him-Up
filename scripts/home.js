@@ -1,4 +1,4 @@
- // Initialize particles.js
+// Initialize particles.js
  document.addEventListener('DOMContentLoaded', function() {
     particlesJS("particles-js", {
         "particles": {
@@ -103,15 +103,25 @@
     const themeToggle = document.getElementById('themeToggle');
     const themeIcon = themeToggle.querySelector('.theme-icon');
     
+    // Check saved theme on load
+    if (localStorage.getItem('darkMode') === 'true') {
+        document.body.classList.add('dark-mode');
+        themeIcon.textContent = '☀️';
+    } else {
+        themeIcon.textContent = '🌙';
+    }
+    
     themeToggle.addEventListener('click', () => {
         document.body.classList.toggle('dark-mode');
-        if (document.body.classList.contains('dark-mode')) {
+        const isDarkMode = document.body.classList.contains('dark-mode');
+        localStorage.setItem('darkMode', isDarkMode);
+        
+        if (isDarkMode) {
             themeIcon.textContent = '☀️';
         } else {
             themeIcon.textContent = '🌙';
         }
     });
-    
     // Add pulse effect to title
     document.querySelector('h1').classList.add('pulse');
 });
@@ -169,12 +179,13 @@ cards.forEach(card => {
 const bgMusic = new Audio('music-effects/blue.mp3');
 bgMusic.loop = true;
 bgMusic.volume = 0.3;
+bgMusic.autoplay = true; // Add autoplay attribute
 
 // Add music controls to the page
 function addMusicControls() {
     const musicButton = document.createElement('button');
     musicButton.id = 'musicToggle';
-    musicButton.innerHTML = '🔇'; // Initial state: muted
+    musicButton.innerHTML = '🔊'; // Start with the playing icon
     musicButton.style.cssText = `
         position: fixed;
         bottom: 20px;
@@ -189,7 +200,30 @@ function addMusicControls() {
 
     document.body.appendChild(musicButton);
 
-    let isPlaying = false;
+    let isPlaying = true; // Assume we'll start playing
+
+    // Start playing immediately
+    bgMusic.play().catch(error => {
+        console.log('Autoplay prevented, waiting for user interaction');
+        isPlaying = false;
+        musicButton.innerHTML = '🔇';
+        
+        // Add event listeners to start playing on any user interaction
+        const startPlayingOnInteraction = () => {
+            bgMusic.play().then(() => {
+                isPlaying = true;
+                musicButton.innerHTML = '🔊';
+                // Remove the event listeners once music starts
+                ['click', 'touchstart', 'keydown'].forEach(event => {
+                    document.removeEventListener(event, startPlayingOnInteraction);
+                });
+            });
+        };
+
+        ['click', 'touchstart', 'keydown'].forEach(event => {
+            document.addEventListener(event, startPlayingOnInteraction);
+        });
+    });
 
     musicButton.addEventListener('click', () => {
         if (isPlaying) {
@@ -209,5 +243,5 @@ function addMusicControls() {
     });
 }
 
-// Initialize music controls
+// Initialize music controls when the page loads
 document.addEventListener('DOMContentLoaded', addMusicControls);

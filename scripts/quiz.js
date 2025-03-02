@@ -332,20 +332,29 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-
-  // Theme toggle
-  const themeToggle = document.getElementById('themeToggle');
-  const themeIcon = themeToggle.querySelector('.theme-icon');
-  
-  themeToggle.addEventListener('click', () => {
-      document.body.classList.toggle('dark-mode');
-      if (document.body.classList.contains('dark-mode')) {
-          themeIcon.textContent = '☀️';
-      } else {
-          themeIcon.textContent = '🌙';
-      }
-  });
-
+ // Theme toggle
+ const themeToggle = document.getElementById('themeToggle');
+ const themeIcon = themeToggle.querySelector('.theme-icon');
+ 
+ // Check saved theme on load
+ if (localStorage.getItem('darkMode') === 'true') {
+     document.body.classList.add('dark-mode');
+     themeIcon.textContent = '☀️';
+ } else {
+     themeIcon.textContent = '🌙';
+ }
+ 
+ themeToggle.addEventListener('click', () => {
+     document.body.classList.toggle('dark-mode');
+     const isDarkMode = document.body.classList.contains('dark-mode');
+     localStorage.setItem('darkMode', isDarkMode);
+     
+     if (isDarkMode) {
+         themeIcon.textContent = '☀️';
+     } else {
+         themeIcon.textContent = '🌙';
+     }
+ });
 
    // Generate floating hearts in the background
    function createFloatingHearts() {
